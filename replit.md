@@ -7,6 +7,7 @@
   - Replaced Replit OAuth with Google OAuth + Email OTP via Telegram
   - Session-based auth with PostgreSQL storage
   - Two login methods: Google & Email+OTP (Telegram verification)
+- **Google OAuth Credentials**: Added and configured with dynamic redirect URI
 - **New Auth Routes**:
   - `/api/auth/google` - Google OAuth redirect
   - `/api/auth/google/callback` - Google callback handler
@@ -16,6 +17,14 @@
 - **New Frontend Pages**:
   - `/login` - Login options (Google + Email OTP)
   - `/login/email` - Email + OTP verification form
+  - `/dashboard` - User bot dashboard
+  - `/kifzldev` - Admin dashboard (with full stats)
+  - `/kifzldev/users` - Manage all users
+  - `/kifzldev/payments` - QRIS payment validation
+  - `/kifzldev/bots` - List all bots
+  - `/kifzldev/premium` - Premium package control
+  - `/kifzldev/security` - Security settings
+  - `/kifzldev/v2-activate` - Bot V2 activation (NEW!)
 - **Dashboard**: Real-time bot status monitoring (online/offline/error/idle)
 - **Bot Creation Flow**: User creates bot with Telegram ID + Bot Token
 - **Database Schema**: Users, Bots (v1/v2), Premium Packages, Payments, OTP, Security Logs
@@ -24,6 +33,16 @@
   - Bootstrap scripts for both Node.js (V1) and Python (V2)
   - Config generation endpoints: `/api/bots/:id/config`
   - Deployment script generation: `/api/bots/:id/deploy/:version`
+- **Bot V2 Activation System** ⭐ NEW:
+  - OPSI 1: Admin activate V2 for specific user (stays FREE unless upgraded)
+    - Endpoint: `POST /api/admin/v2/user`
+    - Form: ID Pengguna, Bot Token, ID Telegram
+    - Data stored at: `/bots/<userId>/<botId>/`
+  - OPSI 2: Admin activate V2 for self (MULTI-BOT, no limit)
+    - Endpoint: `POST /api/admin/v2/self`
+    - Form: Bot Token, ID Telegram
+    - Data stored at: `/bots/admin/<botId>/`
+    - Get admin bots: `GET /api/admin/v2/self`
 - **UI/UX**:
   - Neon cyberpunk aesthetic (purple #9D4EDD / cyan #00BBF9)
   - Glassmorphism cards with smooth animations
@@ -35,27 +54,28 @@
   - Bootstrap scripts for auto-config injection
 
 ### In Progress ⏳
-- Premium subscription validation (7/30/90 day packages via QRIS manual payment)
 - Real-time Telegram notifications for OTP and system events (console logging as placeholder)
 - Bot monitoring callbacks (CPU, RAM, Ping, Uptime at 5-sec intervals)
-- Admin panel at `/kifzldev` route with full control
 - Custom domain setup at `kifzldev-cloud.devpanel.me`
+- Website landing page with features showcase
 
 ### Architecture
 
 **Frontend** (React + Vite + TailwindCSS)
-- Pages: Login, Login Email, Dashboard, Add Bot, Premium, Admin Panel
-- Components: Sidebar navigation, bot cards, three-dot menu overlay
-- Real-time queries with TanStack React Query
+- Pages: Login, Dashboard, Admin Panel (6 subpages), Bot V2 Activation
+- Components: Header, Bot Cards, Stats Cards, Forms
+- Real-time queries with TanStack React Query v5
 - Login flow: Google OAuth or Email+OTP method
+- Routing: Wouter (client-side routing)
 
 **Backend** (Express.js + PostgreSQL + Drizzle ORM)
 - Authentication: Google OAuth + Email OTP via Telegram sessions
 - Auth files: `server/auth/newAuth.ts`, `server/auth/googleOAuth.ts`, `server/auth/emailOtp.ts`
 - Auth routes: `server/routes/authRoutes.ts`
+- V2 Activation: `server/routes/v2Activate.ts`
 - Telegram service: `server/services/telegram.ts` (console logging for dev)
 - Bot management: CRUD operations with access control
-- Config generation: Auto-inject credentials for both bot versions
+- Admin operations: User management, bot activation, payment validation
 - Premium validation: Check user subscription status
 
 **Bot Repositories** (External)
@@ -80,6 +100,7 @@ bots
   ├─ telegramId (bot owner ID)
   ├─ version (v1/v2)
   ├─ status (online/offline/error/idle)
+  ├─ isAdminBot (boolean - true if admin's V2)
   ├─ metrics (cpuUsage, ramUsage, ping, uptime)
   └─ createdAt, updatedAt
 
@@ -101,97 +122,53 @@ otpCodes
 
 ### API Endpoints
 
-#### Auth (NEW SYSTEM)
+#### Auth
 - `GET /api/auth/user` - Get current user (requires session)
 - `GET /api/auth/google` - Redirect to Google OAuth
-- `GET /api/auth/google/callback` - Google OAuth callback (redirects to dashboard on success)
-- `POST /api/auth/email/request-otp` - Request OTP code (body: `{ email, telegramId }`)
-- `POST /api/auth/email/verify-otp` - Verify OTP code (body: `{ email, code }`)
+- `GET /api/auth/google/callback` - Google OAuth callback
+- `POST /api/auth/email/request-otp` - Request OTP code
+- `POST /api/auth/email/verify-otp` - Verify OTP code
 - `GET /api/logout` - Logout and clear session
 
 #### Bots
 - `GET /api/bots` - Get user's bots (auth required)
-- `POST /api/bots` - Create new bot (auth required)
-  - Body: `{ botToken, telegramId, version }`
-- `DELETE /api/bots/:id` - Delete bot (auth required)
-- `POST /api/bots/:id/restart` - Restart bot (auth required)
-- `GET /api/bots/:id/config` - Get auto-injected config (auth required)
-  - Returns: `{ botToken, telegramId, userId, isPremium, webhookUrl, ... }`
-- `GET /api/bots/:id/deploy/:version` - Get deployment script (auth required)
-  - Returns: Bash script with all environment variables set
+- `POST /api/bots` - Create new bot
+- `DELETE /api/bots/:id` - Delete bot
+- `POST /api/bots/:id/restart` - Restart bot
+- `GET /api/bots/:id/config` - Get bot config
+- `GET /api/bots/:id/deploy/:version` - Get deployment script
 
 #### Premium
-- `GET /api/premium/packages` - Get available packages (public)
-- `POST /api/premium/upgrade` - Start upgrade flow (auth required)
-- `GET /api/premium/validate` - Validate current subscription (auth required)
+- `GET /api/premium/packages` - Get available packages
+- `POST /api/premium/upgrade` - Start upgrade flow
+- `GET /api/premium/validate` - Validate current subscription
+
+#### Bot V2 Activation (Admin)
+- `POST /api/admin/v2/user` - Activate V2 for specific user
+  - Body: `{ userId, botToken, telegramId }`
+- `POST /api/admin/v2/self` - Activate V2 for admin (multi-bot)
+  - Body: `{ botToken, telegramId }`
+- `GET /api/admin/v2/self` - Get admin's own V2 bots
 
 #### Admin
-- `GET /api/admin/stats` - Get platform statistics (admin only)
-- `GET /api/admin/payments` - Get pending payments (admin only)
-- `PATCH /api/admin/payments/:id` - Approve/reject payment (admin only)
-
-### Bot Auto-Config System
-
-**Flow:**
-1. User creates bot via dashboard with Telegram ID + Bot Token
-2. Platform generates config: `{ botToken, telegramId, userId, isPremium, ... }`
-3. User downloads deployment script via `/api/bots/:id/deploy/:version`
-4. Script sets `BOT_CONFIG` environment variable with JSON
-5. Bootstrap script (`bootstrap.js` or `bootstrap.py`) parses config
-6. Bot starts with auto-injected credentials
-
-**Example Bot V1 Start:**
-```bash
-export BOT_CONFIG='{"botToken":"xxx","telegramId":"123","isPremium":true,...}'
-cd bots/v1
-node bootstrap.js
-```
-
-**Example Bot V2 Start:**
-```bash
-export BOT_CONFIG='{"botToken":"xxx","telegramId":"123","isPremium":true,...}'
-cd bots/v2
-python bootstrap.py
-```
+- `GET /api/admin/stats` - Get platform statistics
+- `GET /api/admin/users` - Get all users
+- `PATCH /api/admin/users/:id` - Update user
+- `GET /api/admin/payments` - Get all payments
+- `POST /api/admin/payments/:id/process` - Process payment
 
 ### User Preferences
 - Language: Indonesian (casual-professional tone)
 - Design: Neon cyberpunk with glassmorphism
-- Performance: Instant navigation without animations on menu clicks
-- Telegram ID for bot identification (numeric format)
+- Performance: Instant navigation without animations
+- Google OAuth + Email OTP authentication
+- Admin can activate Bot V2 for users OR for self (multi-bot)
 
-### Auth System Implementation Details
-
-**Google OAuth Flow:**
-1. User clicks "Login dengan Google" on `/login`
-2. Redirects to `/api/auth/google`
-3. Google OAuth provider handles authentication
-4. Callback returns to `/api/auth/google/callback`
-5. User data upserted, session created
-6. Redirects to dashboard
-
-**Email OTP Flow:**
-1. User clicks "Login dengan Email" on `/login`
-2. Redirected to `/login/email`
-3. Enter email + Telegram ID
-4. POST `/api/auth/email/request-otp` generates 6-digit OTP
-5. OTP sent via Telegram (console logged in dev)
-6. User enters OTP code
-7. POST `/api/auth/email/verify-otp` validates code
-8. Session created, redirects to dashboard
-
-**Environment Variables Required:**
-- `GOOGLE_OAUTH_CLIENT_ID` - from Google Cloud Console
-- `GOOGLE_OAUTH_CLIENT_SECRET` - from Google Cloud Console
-- `GOOGLE_OAUTH_REDIRECT_URI` - callback URL (default: http://localhost:5000/api/auth/google/callback)
-- `TELEGRAM_BOT_TOKEN` - Bot token from BotFather (optional, logs to console in dev)
-
-### Next Steps
-1. ✅ Auth system refactor (Replit OAuth → Google OAuth + Email OTP)
-2. ✅ Login pages with dual authentication methods
-3. ⏳ Integrate actual Telegram API for OTP delivery (currently console logging)
-4. ⏳ Premium payment validation workflow
-5. ⏳ Bot monitoring system (5-sec metrics)
-6. ⏳ Admin panel setup at /kifzldev
-7. ⏳ Custom domain deployment to kifzldev-cloud.devpanel.me
-8. ⏳ Load testing & production optimization
+### Latest Changes (Session 6)
+- ✅ Fixed Google OAuth session persistence (added req.session.save())
+- ✅ Fixed all 404 errors by creating missing admin pages
+- ✅ Implemented Bot V2 activation system with 2 admin options
+- ✅ Added dynamic Google redirect URI (hostname-based)
+- ✅ Set all admin user as admin role with premium status
+- ✅ Fixed redirect URLs from `/api/login` to `/login`
+- ✅ Created admin pages: Bots, Premium, Security, V2 Activation
