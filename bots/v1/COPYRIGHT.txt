@@ -1,0 +1,107 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║              🎌 IQBAL CV BOT - OFFICIAL PROJECT 🎌                           ║
+║                   ENGLISH / INDONESIAN VERSION                              ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 📌 ENGLISH VERSION / VERSI INGGRIS                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  PROJECT INFORMATION                                                         ║
+║  ══════════════════════════════════════════════════════════════════════════  ║
+║  Project Name:    Iqbal CV Bot                                              ║
+║  Version:         2.1.0                                                     ║
+║  Type:            Telegram File Converter & Contact Manager Bot             ║
+║  Status:          Production Ready ✅                                        ║
+║  License:         MIT (Keep Credits Intact)                                 ║
+║                                                                              ║
+║  OFFICIAL CREATORS                                                           ║
+║  ══════════════════════════════════════════════════════════════════════════  ║
+║  Lead Developer:      KIKI FZL                                              ║
+║  Co-Developer:        IQBAL DEV (Partner/Support)                           ║
+║  Full Credit Name:    KIKI FZL & PARTNER/SUPPORT IQBAL DEV                  ║
+║  Telegram:            @Iqbaldev                                             ║
+║  GitHub:              https://github.com/kyhosting/Iqbal-Bot                ║
+║                                                                              ║
+║  LEGAL NOTICE                                                                ║
+║  ══════════════════════════════════════════════════════════════════════════  ║
+║  Copyright © 2025 KIKI FZL & IQBAL DEV                                      ║
+║  All Rights Reserved                                                        ║
+║                                                                              ║
+║  ALLOWED:                                                                    ║
+║    ✓ Use for personal projects (WITH credits)                              ║
+║    ✓ Use for commercial projects (WITH attribution)                        ║
+║    ✓ Modify code (WITH original credits kept)                              ║
+║    ✓ Deploy on any hosting platform                                        ║
+║    ✓ Create derivative works (WITH proper attribution)                     ║
+║                                                                              ║
+║  NOT ALLOWED:                                                                ║
+║    ✗ Remove or hide copyright notices                                       ║
+║    ✗ Remove watermarks or credits                                           ║
+║    ✗ Rename project without permission                                      ║
+║    ✗ Claim authorship of original code                                      ║
+║    ✗ Redistribute without mentioning original creators                      ║
+║    ✗ Commercial use without attribution                                     ║
+║    ✗ Use for illegal/malicious purposes                                     ║
+║╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ 📌 VERSI INDONESIA / INDONESIAN VERSION                                      │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  INFORMASI PROYEK                                                            ║
+║  ══════════════════════════════════════════════════════════════════════════  ║
+║  Nama Proyek:     Iqbal CV Bot                                              ║
+║  Versi:           2.1.0                                                     ║
+║  Tipe:            Bot Telegram untuk Konversi File & Manajemen Kontak       ║
+║  Status:          Siap Produksi ✅                                           ║
+║  Lisensi:         MIT (Pertahankan Kredit)                                  ║
+║                                                                              ║
+║  PEMBUAT RESMI                                                               ║
+║  ══════════════════════════════════════════════════════════════════════════  ║
+║  Pengembang Utama:     KIKI FZL                                             ║
+║  Co-Pengembang:        IQBAL DEV (Partner/Support)                          ║
+║  Nama Kredit Lengkap:  KIKI FZL & PARTNER/SUPPORT IQBAL DEV                 ║
+║  Telegram:             @Iqbaldev                                            ║
+║  GitHub:               https://github.com/kyhosting/Iqbal-Bot               ║
+║                                                                              ║
+║  PEMBERITAHUAN LEGAL                                                         ║
+║  ══════════════════════════════════════════════════════════════════════════  ║
+║  Hak Cipta © 2025 KIKI FZL & IQBAL DEV                                      ║
+║  Semua Hak Dilindungi                                                       ║
+║                                                                              ║
+║  YANG DIIZINKAN:                                                             ║
+║    ✓ Gunakan untuk proyek pribadi (DENGAN kredit)                           ║
+║    ✓ Gunakan untuk proyek komersial (DENGAN atribusi)                       ║
+║    ✓ Modifikasi kode (DENGAN kredit asli dipertahankan)                    ║
+║    ✓ Deploy di platform hosting apapun                                     ║
+║    ✓ Buat karya turunan (DENGAN atribusi tepat)                            ║
+║                                                                              ║
+║  YANG TIDAK DIIZINKAN:                                                       ║
+║    ✗ Menghapus atau menyembunyikan pemberitahuan hak cipta                  ║
+║    ✗ Menghapus watermark atau kredit                                        ║
+║    ✗ Mengganti nama proyek tanpa izin                                       ║
+║    ✗ Mengklaim kepemilikan kode asli                                        ║
+║    ✗ Mendistribusikan kembali tanpa menyebutkan pembuat asli                ║
+║    ✗ Penggunaan komersial tanpa atribusi                                    ║
+║    ✗ Menggunakan untuk tujuan ilegal/berbahaya                              ║
+║╚══════════════════════════════════════════════════════════════════════════════╝
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📞 CONTACT FOR VIOLATIONS / HUBUNGI UNTUK PELANGGARAN:
+   Telegram: @Iqbaldev
+   GitHub: https://github.com/kyhosting/Iqbal-Bot/issues
+
+🎁 VERSION / VERSI: 2.1.0
+📅 LAST UPDATED / TERAKHIR DIUPDATE: November 23, 2025
+
+🎌 WATERMARK / TANDA TANGAN:
+   🎌 IQBAL CV BOT - OFFICIAL VERSION BY KIFZL & IQBAL DEV 🎌
+
+Made with ❤️  by KIKI FZL & PARTNER/SUPPORT IQBAL DEV
+Dibuat dengan ❤️ oleh KIKI FZL & PARTNER/SUPPORT IQBAL DEV
