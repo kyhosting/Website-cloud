@@ -58,7 +58,7 @@ export const bots = pgTable("bots", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   userId: varchar("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
   botToken: text("bot_token").notNull(),
-  botName: varchar("bot_name").notNull(),
+  telegramId: varchar("telegram_id").notNull(),
   botUsername: varchar("bot_username"),
   version: botVersionEnum("version").default("v1").notNull(),
   status: botStatusEnum("status").default("offline").notNull(),
