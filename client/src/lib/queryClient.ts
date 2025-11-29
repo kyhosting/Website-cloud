@@ -33,8 +33,15 @@ export const getQueryFn: <T>(options: {
       credentials: "include",
     });
 
-    if (unauthorizedBehavior === "returnNull" && res.status === 401) {
-      return null;
+    if (res.status === 401) {
+      if (unauthorizedBehavior === "returnNull") {
+        return null;
+      }
+      // For auth endpoint, return null instead of throwing to prevent infinite loop
+      if (queryKey[0] === "/api/auth/user") {
+        return null;
+      }
+      throw new Error("401: Unauthorized");
     }
 
     await throwIfResNotOk(res);
