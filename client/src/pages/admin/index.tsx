@@ -9,7 +9,8 @@ import {
   Activity,
   AlertTriangle,
   TrendingUp,
-  Clock
+  Clock,
+  Zap
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -79,6 +80,7 @@ export default function AdminDashboard() {
     { label: "Semua User", href: "/kifzldev/users", icon: Users, count: stats?.totalUsers || 0 },
     { label: "Semua Bot", href: "/kifzldev/bots", icon: Bot, count: stats?.totalBots || 0 },
     { label: "Bot V2", href: "/kifzldev/bots/v2", icon: Bot, count: stats?.activeV2Bots || 0 },
+    { label: "Aktivasi V2", href: "/kifzldev/v2-activate", icon: Zap, highlight: true },
     { label: "Validasi QRIS", href: "/kifzldev/payments", icon: CreditCard, count: stats?.pendingPayments || 0, highlight: true },
     { label: "Premium Control", href: "/kifzldev/premium", icon: Crown, count: stats?.premiumUsers || 0 },
     { label: "Keamanan", href: "/kifzldev/security", icon: AlertTriangle, count: stats?.securityAlerts || 0, danger: true },
