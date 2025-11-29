@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { 
@@ -27,6 +27,7 @@ export default function Dashboard() {
   const { user, isLoading: authLoading, isAuthenticated, isPremium } = useAuth();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
+  const [restartingBotId, setRestartingBotId] = useState<string | null>(null);
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -80,6 +81,7 @@ export default function Dashboard() {
 
   const restartBot = useMutation({
     mutationFn: async (botId: string) => {
+      setRestartingBotId(botId);
       await apiRequest("POST", `/api/bots/${botId}/restart`);
     },
     onSuccess: () => {
@@ -88,8 +90,10 @@ export default function Dashboard() {
         title: "Bot Direstart",
         description: "Bot sedang direstart...",
       });
+      setRestartingBotId(null);
     },
     onError: (error) => {
+      setRestartingBotId(null);
       if (isUnauthorizedError(error as Error)) {
         toast({
           title: "Unauthorized",
@@ -245,7 +249,7 @@ export default function Dashboard() {
                         onDelete={(id) => deleteBot.mutate(id)}
                         onRestart={(id) => restartBot.mutate(id)}
                         onViewLogs={(id) => setLocation(`/bots/${id}/logs`)}
-                        isLoading={deleteBot.isPending || restartBot.isPending}
+                        isLoading={deleteBot.isPending || restartingBotId === bot.id}
                       />
                     </motion.div>
                   ))}
