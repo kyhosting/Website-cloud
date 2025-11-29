@@ -27,6 +27,16 @@ export function getSession() {
     ttl: sessionTtl,
     tableName: "sessions",
   });
+
+  // Handle session store errors gracefully (Neon serverless idle timeouts)
+  sessionStore.on('error', (error: any) => {
+    // Suppress Neon idle connection warnings
+    if (error.code === '57P01' || error.message?.includes('administrator command')) {
+      return;
+    }
+    console.error('Session store error:', error.message);
+  });
+
   return session({
     secret: process.env.SESSION_SECRET!,
     store: sessionStore,
