@@ -163,7 +163,7 @@ export function ThreeDotMenu() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.1 }}
             className="fixed inset-0 z-50 glass-dark flex items-center justify-center"
             onClick={() => setIsOpen(false)}
           >
@@ -178,39 +178,38 @@ export function ThreeDotMenu() {
             </Button>
 
             <motion.nav
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="flex flex-col items-center gap-3 p-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.1 }}
+              className="flex flex-col items-center gap-2 p-6 max-h-[90vh] overflow-y-auto w-full max-w-md"
               onClick={(e) => e.stopPropagation()}
             >
               {menuItems.map((item, index) => (
-                <motion.div
+                <div
                   key={item.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
                 >
                   {item.href ? (
                     item.href.startsWith("/api") ? (
                       <a
                         href={item.href}
-                        className="flex items-center gap-4 px-8 py-4 rounded-lg glass neon-border hover-elevate transition-all min-w-[250px]"
+                        className="w-full flex items-center gap-4 px-6 py-3 rounded-lg glass neon-border hover-elevate transition-all"
                         data-testid={`menu-item-${item.label.toLowerCase().replace(/\s/g, "-")}`}
                       >
                         <span className="text-primary">{item.icon}</span>
-                        <span className="text-lg font-medium">{item.label}</span>
+                        <span className="font-medium">{item.label}</span>
                       </a>
                     ) : (
                       <Link
                         href={item.href}
-                        className="flex items-center gap-4 px-8 py-4 rounded-lg glass neon-border hover-elevate transition-all min-w-[250px]"
-                        onClick={() => setIsOpen(false)}
+                        className="w-full flex items-center gap-4 px-6 py-3 rounded-lg glass neon-border hover-elevate transition-all"
+                        onClick={() => {
+                          setIsOpen(false);
+                        }}
                         data-testid={`menu-item-${item.label.toLowerCase().replace(/\s/g, "-")}`}
                       >
                         <span className="text-primary">{item.icon}</span>
-                        <span className="text-lg font-medium">{item.label}</span>
+                        <span className="font-medium">{item.label}</span>
                       </Link>
                     )
                   ) : (
@@ -219,32 +218,26 @@ export function ThreeDotMenu() {
                         item.onClick?.();
                         setIsOpen(false);
                       }}
-                      className="flex items-center gap-4 px-8 py-4 rounded-lg glass neon-border hover-elevate transition-all min-w-[250px]"
+                      className="w-full flex items-center gap-4 px-6 py-3 rounded-lg glass neon-border hover-elevate transition-all"
                       data-testid={`menu-item-${item.label.toLowerCase().replace(/\s/g, "-")}`}
                     >
                       <span className="text-primary">{item.icon}</span>
-                      <span className="text-lg font-medium">{item.label}</span>
+                      <span className="font-medium">{item.label}</span>
                     </button>
                   )}
-                </motion.div>
+                </div>
               ))}
 
               {devModeActivated && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: menuItems.length * 0.05 }}
+                <Link
+                  href="/devmode"
+                  className="w-full flex items-center gap-4 px-6 py-3 rounded-lg bg-destructive/20 border border-destructive/50 hover-elevate transition-all"
+                  onClick={() => setIsOpen(false)}
+                  data-testid="menu-item-dev-mode"
                 >
-                  <Link
-                    href="/devmode"
-                    className="flex items-center gap-4 px-8 py-4 rounded-lg bg-destructive/20 border border-destructive/50 hover-elevate transition-all min-w-[250px]"
-                    onClick={() => setIsOpen(false)}
-                    data-testid="menu-item-dev-mode"
-                  >
-                    <AlertTriangle className="w-5 h-5 text-destructive" />
-                    <span className="text-lg font-medium text-destructive">Dev Mode</span>
-                  </Link>
-                </motion.div>
+                  <AlertTriangle className="w-5 h-5 text-destructive" />
+                  <span className="font-medium text-destructive">Dev Mode</span>
+                </Link>
               )}
             </motion.nav>
           </motion.div>
