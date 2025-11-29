@@ -11,6 +11,9 @@ import Landing from "@/pages/landing";
 import Dashboard from "@/pages/dashboard";
 import AddBot from "@/pages/add-bot";
 import Premium from "@/pages/premium";
+import Profile from "@/pages/profile";
+import BotHistory from "@/pages/bot-history";
+import AdminMessages from "@/pages/admin-messages";
 import About from "@/pages/about";
 import Security from "@/pages/security";
 import Developer from "@/pages/developer";
@@ -24,6 +27,9 @@ function AuthenticatedRoutes() {
       <Route path="/" component={Dashboard} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/bots/new" component={AddBot} />
+      <Route path="/profile" component={Profile} />
+      <Route path="/bots/history" component={BotHistory} />
+      <Route path="/messages" component={AdminMessages} />
       <Route path="/premium" component={Premium} />
       <Route path="/kifzldev" component={AdminDashboard} />
       <Route path="/kifzldev/users" component={AdminUsers} />
