@@ -125,7 +125,7 @@ export function BotCard({ bot, onDelete, onRestart, onViewLogs, isLoading }: Bot
             size="sm"
             variant="outline"
             onClick={() => onRestart?.(bot.id)}
-            disabled={isLoading || bot.status === "offline"}
+            disabled={isLoading}
             data-testid={`button-restart-bot-${bot.id}`}
           >
             <RefreshCw className="w-4 h-4 mr-1" />
