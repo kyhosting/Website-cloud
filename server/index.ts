@@ -12,6 +12,9 @@ declare module "http" {
   }
 }
 
+// Trust proxy headers from Netlify/Vercel
+app.set("trust proxy", true);
+
 // CORS middleware - allow requests from Vercel/Netlify/localhost
 app.use((req, res, next) => {
   const origin = req.headers.origin || "";
