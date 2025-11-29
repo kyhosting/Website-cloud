@@ -85,8 +85,8 @@ def bootstrap():
 # Do not commit this file with real tokens!
 
 # Bot Owner Settings
-OWNER_ID = {bot_config.get("telegramId", "8317563450")}
-OWNER_USERNAME = "{bot_config.get("userTelegramId", "@KIFZLDEV")}"
+OWNER_ID = {bot_config.get("telegramId", 8317563450)}
+OWNER_USERNAME = "@KIFZLDEV"
 
 # VIP Verification Groups
 VIP_GROUPS = [

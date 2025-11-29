@@ -1,6 +1,7 @@
 import type { Express } from "express";
 import { isAuthenticated, isAdmin } from "../auth/newAuth";
 import { storage } from "../storage";
+import { botManager } from "../botManager";
 
 export function registerV2ActivateRoutes(app: Express) {
   // OPSI 1: Admin activate V2 untuk user tertentu
@@ -33,6 +34,12 @@ export function registerV2ActivateRoutes(app: Express) {
         isAdminBot: false,
       });
 
+      // Auto-spawn bot immediately
+      setTimeout(async () => {
+        const numTelegramId = parseInt(telegramId as string, 10);
+        await botManager.spawnBot(bot.id, botToken, numTelegramId, "v2");
+      }, 500);
+
       res.status(201).json(bot);
     } catch (error) {
       console.error("V2 activation error:", error);
@@ -59,6 +66,12 @@ export function registerV2ActivateRoutes(app: Express) {
         status: "offline" as const,
         isAdminBot: true,
       });
+
+      // Auto-spawn bot immediately
+      setTimeout(async () => {
+        const numTelegramId = parseInt(telegramId as string, 10);
+        await botManager.spawnBot(bot.id, botToken, numTelegramId, "v2");
+      }, 500);
 
       res.status(201).json(bot);
     } catch (error) {
