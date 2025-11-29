@@ -6,7 +6,7 @@ const token = process.env.TELEGRAM_BOT_TOKEN || "8411014638:AAFfzvaOIwWK9_6JY784
 export default {
   token: token,
   owner: [8583927964],
-  ownerUsername: "8583927964",
+  ownerUsername: "KIFZLDEV",
   botCreator: "KIFZL & PARTNER/SUPPORT IQBAL DEV",
   groups: {
     main: "your_group_username",
