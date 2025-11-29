@@ -57,11 +57,11 @@ export const getQueryFn: <T>(options: {
 
       // For 401, treat as unauthenticated but don't error
       if (res.status === 401) {
-        if (unauthorizedBehavior === "returnNull") {
-          return null;
-        }
         // For auth endpoint, return null instead of throwing to prevent infinite loop
         if (queryKey[0] === "/api/auth/user") {
+          return null;
+        }
+        if (unauthorizedBehavior === "returnNull") {
           return null;
         }
         throw new Error("401: Unauthorized");
@@ -70,7 +70,11 @@ export const getQueryFn: <T>(options: {
       await throwIfResNotOk(res);
       return await res.json();
     } catch (error) {
-      console.error(`Query failed for ${fullUrl}:`, error);
+      // For auth endpoint errors, return null to show landing page
+      if (queryKey[0] === "/api/auth/user") {
+        console.debug(`Auth query error (expected if not logged in):`, error instanceof Error ? error.message : "Unknown error");
+        return null;
+      }
       throw error;
     }
   };
