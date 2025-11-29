@@ -41,30 +41,76 @@ export default function AdminV2Activate() {
   // Activate V2 for user
   const activateUserV2 = useMutation({
     mutationFn: async () => {
-      return await apiRequest("POST", "/api/admin/v2/user", userForm);
+      // Validate form
+      if (!userForm.userId.trim()) {
+        throw new Error("Pilih user terlebih dahulu");
+      }
+      if (!userForm.botToken.trim()) {
+        throw new Error("Bot Token diperlukan");
+      }
+      if (!userForm.telegramId.trim()) {
+        throw new Error("Telegram ID diperlukan");
+      }
+      if (isNaN(Number(userForm.telegramId))) {
+        throw new Error("Telegram ID harus berupa angka");
+      }
+      
+      return await apiRequest("POST", "/api/admin/v2/user", {
+        userId: userForm.userId,
+        botToken: userForm.botToken.trim(),
+        telegramId: userForm.telegramId.trim(),
+      });
     },
     onSuccess: () => {
-      toast({ title: "Bot V2 Aktivasi", description: "Bot V2 berhasil diaktifkan untuk user" });
+      toast({ title: "✅ Bot V2 User", description: "Bot V2 berhasil diaktifkan untuk user" });
       setUserForm({ userId: "", botToken: "", telegramId: "" });
       queryClient.invalidateQueries({ queryKey: ["/api/admin/users"] });
     },
     onError: (error: any) => {
-      toast({ title: "Error", description: error.response?.data?.message || "Gagal aktivasi", variant: "destructive" });
+      const errorMsg = error instanceof Error 
+        ? error.message 
+        : error.response?.data?.message || "Gagal aktivasi";
+      toast({ 
+        title: "❌ Error", 
+        description: errorMsg, 
+        variant: "destructive" 
+      });
     },
   });
 
   // Activate V2 for self
   const activateSelfV2 = useMutation({
     mutationFn: async () => {
-      return await apiRequest("POST", "/api/admin/v2/self", selfForm);
+      // Validate form
+      if (!selfForm.botToken.trim()) {
+        throw new Error("Bot Token diperlukan");
+      }
+      if (!selfForm.telegramId.trim()) {
+        throw new Error("Telegram ID diperlukan");
+      }
+      if (isNaN(Number(selfForm.telegramId))) {
+        throw new Error("Telegram ID harus berupa angka");
+      }
+      
+      return await apiRequest("POST", "/api/admin/v2/self", {
+        botToken: selfForm.botToken.trim(),
+        telegramId: selfForm.telegramId.trim(),
+      });
     },
     onSuccess: () => {
-      toast({ title: "Bot V2 Admin", description: "Bot V2 berhasil diaktifkan untuk admin" });
+      toast({ title: "✅ Bot V2 Admin", description: "Bot V2 berhasil diaktifkan!" });
       setSelfForm({ botToken: "", telegramId: "" });
       refetchAdminBots();
     },
     onError: (error: any) => {
-      toast({ title: "Error", description: error.response?.data?.message || "Gagal aktivasi", variant: "destructive" });
+      const errorMsg = error instanceof Error 
+        ? error.message 
+        : error.response?.data?.message || "Gagal aktivasi";
+      toast({ 
+        title: "❌ Error", 
+        description: errorMsg, 
+        variant: "destructive" 
+      });
     },
   });
 
@@ -144,10 +190,10 @@ export default function AdminV2Activate() {
               </div>
               <Button
                 onClick={() => activateUserV2.mutate()}
-                disabled={activateUserV2.isPending || !userForm.userId}
+                disabled={activateUserV2.isPending}
                 className="w-full"
               >
-                {activateUserV2.isPending ? "Activating..." : "Aktivasi untuk User"}
+                {activateUserV2.isPending ? "⏳ Activating..." : "✅ Aktivasi untuk User"}
               </Button>
             </CardContent>
           </Card>
@@ -186,7 +232,7 @@ export default function AdminV2Activate() {
                   disabled={activateSelfV2.isPending}
                   className="w-full"
                 >
-                  {activateSelfV2.isPending ? "Activating..." : "Aktivasi untuk Admin"}
+                  {activateSelfV2.isPending ? "⏳ Activating..." : "✅ Aktivasi untuk Admin"}
                 </Button>
               </CardContent>
             </Card>
