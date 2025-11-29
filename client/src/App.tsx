@@ -22,7 +22,8 @@ import Developer from "@/pages/developer";
 import AdminDashboard from "@/pages/admin/index";
 import AdminUsers from "@/pages/admin/users";
 import AdminPayments from "@/pages/admin/payments";
-import AdminBots from "@/pages/admin/bots";
+import AdminBotsV1 from "@/pages/admin/bots-v1";
+import AdminBotsV2 from "@/pages/admin/bots-v2";
 import AdminPremium from "@/pages/admin/premium";
 import AdminSecurity from "@/pages/admin/security";
 import AdminV2Activate from "@/pages/admin/v2-activate";
@@ -40,8 +41,8 @@ function AuthenticatedRoutes() {
       <Route path="/kifzldev" component={AdminDashboard} />
       <Route path="/kifzldev/users" component={AdminUsers} />
       <Route path="/kifzldev/payments" component={AdminPayments} />
-      <Route path="/kifzldev/bots" component={AdminBots} />
-      <Route path="/kifzldev/bots/v2" component={AdminBots} />
+      <Route path="/kifzldev/bots/v1" component={AdminBotsV1} />
+      <Route path="/kifzldev/bots/v2" component={AdminBotsV2} />
       <Route path="/kifzldev/premium" component={AdminPremium} />
       <Route path="/kifzldev/security" component={AdminSecurity} />
       <Route path="/kifzldev/v2-activate" component={AdminV2Activate} />

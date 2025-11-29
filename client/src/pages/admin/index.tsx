@@ -78,8 +78,8 @@ export default function AdminDashboard() {
 
   const quickActions = [
     { label: "Semua User", href: "/kifzldev/users", icon: Users, count: stats?.totalUsers || 0 },
-    { label: "Semua Bot", href: "/kifzldev/bots", icon: Bot, count: stats?.totalBots || 0 },
-    { label: "Bot V2", href: "/kifzldev/bots/v2", icon: Bot, count: stats?.activeV2Bots || 0 },
+    { label: "Bot V1", href: "/kifzldev/bots/v1", icon: Bot, count: stats?.totalBots || 0 },
+    { label: "Bot V2", href: "/kifzldev/bots/v2", icon: Zap, count: stats?.activeV2Bots || 0 },
     { label: "Aktivasi V2", href: "/kifzldev/v2-activate", icon: Zap, highlight: true },
     { label: "Validasi QRIS", href: "/kifzldev/payments", icon: CreditCard, count: stats?.pendingPayments || 0, highlight: true },
     { label: "Premium Control", href: "/kifzldev/premium", icon: Crown, count: stats?.premiumUsers || 0 },
