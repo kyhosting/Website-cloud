@@ -61,3 +61,11 @@ waitForPort = 5000
 
 [agent]
 integrations = ["javascript_database:1.0.0", "javascript_log_in_with_replit:1.0.0"]
+
+[userenv]
+
+[userenv.shared]
+GOOGLE_OAUTH_CLIENT_ID = "64093296626-7ukjd1c4q9d4tc8f2a3d09cemaqjogl3.apps.googleusercontent.com"
+GOOGLE_OAUTH_CLIENT_SECRET = "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"
+GOOGLE_OAUTH_REDIRECT_URI = "https://5f934498-ccd6-4cb0-b709-fcf69c38f837-00-1yxr91kqzcqpe.worf.replit.dev/api/auth/google/callback"
+TELEGRAM_BOT_TOKEN = "8504978808:AAF5zslLD68a4IQTF5Mfbcy8pc_IOU7Wulw"

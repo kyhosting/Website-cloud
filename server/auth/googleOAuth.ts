@@ -1,5 +1,5 @@
 import axios from "axios";
-import { storage } from "@/server/storage";
+import { storage } from "../storage";
 
 export interface GoogleTokenResponse {
   access_token: string;

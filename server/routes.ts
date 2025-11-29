@@ -46,7 +46,7 @@ export async function registerRoutes(server: Server, app: Express): Promise<void
   // Get user's bots
   app.get("/api/bots", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session?.userId;
       const bots = await storage.getBotsByUserId(userId);
       res.json(bots);
     } catch (error) {
@@ -58,7 +58,7 @@ export async function registerRoutes(server: Server, app: Express): Promise<void
   // Create new bot
   app.post("/api/bots", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session?.userId;
       const user = await storage.getUser(userId);
       
       if (!user) {
@@ -96,7 +96,7 @@ export async function registerRoutes(server: Server, app: Express): Promise<void
   // Delete bot
   app.delete("/api/bots/:id", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session?.userId;
       const bot = await storage.getBotById(req.params.id);
       
       if (!bot) {
@@ -118,7 +118,7 @@ export async function registerRoutes(server: Server, app: Express): Promise<void
   // Get bot config (auto-injected)
   app.get("/api/bots/:id/config", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session?.userId;
       const bot = await storage.getBotById(req.params.id);
       
       if (!bot) {
@@ -168,7 +168,7 @@ export async function registerRoutes(server: Server, app: Express): Promise<void
   // Get bot deployment script
   app.get("/api/bots/:id/deploy/:version", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session?.userId;
       const bot = await storage.getBotById(req.params.id);
       
       if (!bot) {
@@ -242,7 +242,7 @@ python bootstrap.py`;
   // Restart bot
   app.post("/api/bots/:id/restart", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session?.userId;
       const bot = await storage.getBotById(req.params.id);
       
       if (!bot) {
@@ -275,7 +275,7 @@ python bootstrap.py`;
   // Get bot logs
   app.get("/api/bots/:id/logs", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session?.userId;
       const bot = await storage.getBotById(req.params.id);
       
       if (!bot) {
@@ -324,7 +324,7 @@ python bootstrap.py`;
   // Get pending payment
   app.get("/api/payments/pending", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session?.userId;
       const payment = await storage.getPendingPaymentByUserId(userId);
       res.json(payment || null);
     } catch (error) {
@@ -336,7 +336,7 @@ python bootstrap.py`;
   // Create payment with proof upload
   app.post("/api/payments", isAuthenticated, upload.single("proof"), async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.session?.userId;
       
       // Check for existing pending payment
       const existingPayment = await storage.getPendingPaymentByUserId(userId);
@@ -450,7 +450,7 @@ python bootstrap.py`;
   app.post("/api/admin/payments/:id/process", isAuthenticated, isAdmin, async (req: any, res) => {
     try {
       const { status, note } = req.body;
-      const adminId = req.user.claims.sub;
+      const adminId = req.session?.userId;
 
       const payment = await storage.updatePayment(req.params.id, {
         status,

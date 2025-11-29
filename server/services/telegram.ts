@@ -1,5 +1,3 @@
-const TelegramBot = require("python-telegram-bot");
-
 class TelegramService {
   private botToken: string;
 
@@ -14,12 +12,13 @@ class TelegramService {
     }
 
     try {
-      // For production, would use telegram API
+      // For production, would use Telegram Bot API
       // For now, log OTP (user can check console or implement actual bot)
-      console.log(`[TELEGRAM] OTP for ${email}: ${code}`);
+      console.log(`[TELEGRAM OTP] User ${telegramId} | Code: ${code} | Email: ${email}`);
       
-      // Placeholder for actual Telegram API integration
-      // In production, would use python-telegram-bot or axios to send message
+      // In production: use axios to call Telegram API or python-telegram-bot library
+      // POST https://api.telegram.org/bot{botToken}/sendMessage
+      // with chat_id={telegramId}, text=OTP_CODE
     } catch (error) {
       console.error("Failed to send Telegram OTP:", error);
       throw error;
@@ -33,7 +32,9 @@ class TelegramService {
     }
 
     try {
-      console.log(`[TELEGRAM] Message to ${telegramId}: ${message}`);
+      console.log(`[TELEGRAM MSG] To ${telegramId}: ${message}`);
+      
+      // In production: use Telegram API
     } catch (error) {
       console.error("Failed to send Telegram message:", error);
     }

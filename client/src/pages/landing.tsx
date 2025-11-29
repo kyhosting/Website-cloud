@@ -107,7 +107,7 @@ export default function Landing() {
                 transition={{ delay: 0.5 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               >
-                <a href="/api/login">
+                <a href="/login">
                   <Button size="lg" className="neon-glow text-lg px-8 py-6 group" data-testid="button-start-now">
                     Mulai Sekarang
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
