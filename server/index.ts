@@ -12,6 +12,35 @@ declare module "http" {
   }
 }
 
+// CORS middleware - allow requests from Vercel/Netlify/localhost
+app.use((req, res, next) => {
+  const origin = req.headers.origin || "";
+  const allowedOrigins = [
+    "http://localhost:5000",
+    "http://localhost:3000",
+    "https://website-cloud-9wod46rfx-kyhostings-projects.vercel.app",
+    /netlify\.app$/,
+    /replit\.dev$/,
+  ];
+  
+  const isAllowed = allowedOrigins.some(allowed => 
+    typeof allowed === "string" ? origin === allowed : allowed.test(origin)
+  );
+
+  if (isAllowed || !origin) {
+    res.setHeader("Access-Control-Allow-Origin", origin || "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  }
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
+
 app.use(
   express.json({
     verify: (req, _res, buf) => {
