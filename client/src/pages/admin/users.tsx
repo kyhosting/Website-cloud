@@ -50,7 +50,7 @@ export default function AdminUsers() {
   useEffect(() => {
     if (!authLoading) {
       if (!isAuthenticated) {
-        window.location.href = "/api/login";
+        window.location.href = "/login";
       } else if (!isAdmin) {
         setLocation("/dashboard");
       }
@@ -75,7 +75,7 @@ export default function AdminUsers() {
     },
     onError: (error) => {
       if (isUnauthorizedError(error as Error)) {
-        window.location.href = "/api/login";
+        window.location.href = "/login";
         return;
       }
       toast({
