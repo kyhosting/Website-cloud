@@ -20,7 +20,7 @@ export function registerAuthRoutes(app: Express) {
   // Google OAuth - redirect to Google
   app.get("/api/auth/google", (req, res) => {
     try {
-      const authUrl = getGoogleAuthUrl();
+      const authUrl = getGoogleAuthUrl(req.hostname);
       res.redirect(authUrl);
     } catch (error) {
       console.error("Google auth error:", error);
@@ -37,7 +37,7 @@ export function registerAuthRoutes(app: Express) {
         return res.redirect("/login?error=no_code");
       }
 
-      const userInfo = await exchangeGoogleCode(code as string);
+      const userInfo = await exchangeGoogleCode(code as string, req.hostname);
       const user = await upsertGoogleUser(userInfo);
 
       // Set session

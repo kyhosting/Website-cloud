@@ -16,25 +16,34 @@ export interface GoogleUserInfo {
 
 const GOOGLE_OAUTH_CLIENT_ID = process.env.GOOGLE_OAUTH_CLIENT_ID;
 const GOOGLE_OAUTH_CLIENT_SECRET = process.env.GOOGLE_OAUTH_CLIENT_SECRET;
-const GOOGLE_OAUTH_REDIRECT_URI = process.env.GOOGLE_OAUTH_REDIRECT_URI || "http://localhost:5000/api/auth/google/callback";
 
-export function getGoogleAuthUrl(): string {
+export function getGoogleAuthUrl(hostname: string): string {
+  // Build redirect URI dynamically from hostname
+  const protocol = hostname.includes("localhost") ? "http" : "https";
+  const redirectUri = `${protocol}://${hostname}/api/auth/google/callback`;
+  
   const params = new URLSearchParams({
     client_id: GOOGLE_OAUTH_CLIENT_ID!,
-    redirect_uri: GOOGLE_OAUTH_REDIRECT_URI,
+    redirect_uri: redirectUri,
     response_type: "code",
     scope: "openid profile email",
   });
   return `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
 }
 
-export async function exchangeGoogleCode(code: string): Promise<GoogleUserInfo> {
+export function getRedirectUri(hostname: string): string {
+  const protocol = hostname.includes("localhost") ? "http" : "https";
+  return `${protocol}://${hostname}/api/auth/google/callback`;
+}
+
+export async function exchangeGoogleCode(code: string, hostname: string): Promise<GoogleUserInfo> {
   try {
+    const redirectUri = getRedirectUri(hostname);
     const tokenResponse = await axios.post("https://oauth2.googleapis.com/token", {
       client_id: GOOGLE_OAUTH_CLIENT_ID,
       client_secret: GOOGLE_OAUTH_CLIENT_SECRET,
       code,
-      redirect_uri: GOOGLE_OAUTH_REDIRECT_URI,
+      redirect_uri: redirectUri,
       grant_type: "authorization_code",
     });
 
