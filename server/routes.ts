@@ -2,6 +2,7 @@ import type { Express } from "express";
 import type { Server } from "http";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated, isAdmin } from "./replitAuth";
+import { botManager } from "./botManager";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -260,17 +261,46 @@ python bootstrap.py`;
         return res.status(403).json({ message: "Access denied" });
       }
 
-      // Simulate restart (in real implementation, this would restart the actual bot process)
-      await storage.updateBot(req.params.id, { 
-        status: "online",
-        uptime: 0,
-        lastActiveAt: new Date()
-      });
-      
-      res.json({ message: "Bot restarted successfully" });
+      // Actually spawn/restart the bot process
+      const success = await botManager.restartBot(
+        req.params.id,
+        bot.botToken,
+        bot.telegramId,
+        bot.version as "v1" | "v2"
+      );
+
+      if (success) {
+        res.json({ message: "Bot restarted successfully and connected to Telegram!" });
+      } else {
+        res.status(500).json({ message: "Failed to start bot process" });
+      }
     } catch (error) {
       console.error("Error restarting bot:", error);
       res.status(500).json({ message: "Failed to restart bot" });
+    }
+  });
+
+  // Get bot logs
+  app.get("/api/bots/:id/logs", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const bot = await storage.getBotById(req.params.id);
+      
+      if (!bot) {
+        return res.status(404).json({ message: "Bot not found" });
+      }
+      
+      if (bot.userId !== userId) {
+        return res.status(403).json({ message: "Access denied" });
+      }
+
+      const lines = parseInt(req.query.lines || "50");
+      const logs = botManager.getBotLogs(req.params.id, lines);
+      
+      res.json({ logs });
+    } catch (error) {
+      console.error("Error fetching bot logs:", error);
+      res.status(500).json({ message: "Failed to fetch logs" });
     }
   });
 
