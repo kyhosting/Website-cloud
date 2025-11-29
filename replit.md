@@ -175,12 +175,17 @@ otpCodes
 - Google OAuth + Email OTP authentication
 - Admin can activate Bot V2 for users OR for self (multi-bot)
 
-### Latest Changes (Session 7)
-- ✅ Setup split deployment: Frontend (Vercel) ↔ Backend (Replit)
+### Latest Changes (Session 7-8)
+- ✅ Setup split deployment: Frontend (Netlify) ↔ Backend (Replit)
 - ✅ Created deployment configs (vercel.json, netlify.toml)
 - ✅ Modified queryClient.ts to support VITE_API_URL environment variable
+- ✅ Added CORS headers for cross-origin requests
+- ✅ Fixed queryClient error handling for 401 responses
+- ✅ Added proxy trust in Express for Netlify headers
+- ✅ Fixed Google OAuth redirect_uri to use X-Forwarded-Host from proxy
 - ✅ Backend running successfully on port 5000
-- ✅ Created DEPLOYMENT_VERCEL_NETLIFY.md guide
+- ✅ Frontend deployed at: https://kifzldev-cloud.netlify.app
+- ✅ Backend accessible at: https://runner-workspace.replit.dev
 
 ### Previous Changes (Session 6)
 - ✅ Fixed Google OAuth session persistence (added req.session.save())

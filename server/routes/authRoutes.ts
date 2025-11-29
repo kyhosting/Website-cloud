@@ -20,7 +20,9 @@ export function registerAuthRoutes(app: Express) {
   // Google OAuth - redirect to Google
   app.get("/api/auth/google", (req, res) => {
     try {
-      const authUrl = getGoogleAuthUrl(req.hostname);
+      // Use X-Forwarded-Host from proxy if available, fallback to hostname
+      const hostname = req.get("X-Forwarded-Host") || req.hostname;
+      const authUrl = getGoogleAuthUrl(hostname);
       res.redirect(authUrl);
     } catch (error) {
       console.error("Google auth error:", error);
@@ -37,7 +39,9 @@ export function registerAuthRoutes(app: Express) {
         return res.redirect("/login?error=no_code");
       }
 
-      const userInfo = await exchangeGoogleCode(code as string, req.hostname);
+      // Use X-Forwarded-Host from proxy if available, fallback to hostname
+      const hostname = req.get("X-Forwarded-Host") || req.hostname;
+      const userInfo = await exchangeGoogleCode(code as string, hostname);
       const user = await upsertGoogleUser(userInfo);
 
       // Set session

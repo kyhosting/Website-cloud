@@ -2,14 +2,21 @@
   command = "npm run build"
   publish = "dist/public"
 
+# Rewrite ALL /api/* requests to Replit backend
 [[redirects]]
   from = "/api/*"
-  to = "https://kifzldev-replit.replit.dev/api/:splat"
+  to = "https://runner-workspace.replit.dev/api/:splat"
   status = 200
   force = true
 
+# Redirect all other routes to index.html (SPA fallback)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [context.production.environment]
-  VITE_API_URL = "https://kifzldev-replit.replit.dev"
+  VITE_API_URL = "https://runner-workspace.replit.dev"
 
 [[headers]]
   for = "/assets/*"
@@ -20,3 +27,5 @@
   for = "/*"
   [headers.values]
     Cache-Control = "public, max-age=3600, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
