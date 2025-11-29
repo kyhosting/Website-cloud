@@ -208,7 +208,9 @@ class BotProcessManager {
    * Get all active processes
    */
   getAllProcesses(): BotProcess[] {
-    return Array.from(this.processes.values ? this.processes.values() : this.processes.values);
+    const values: BotProcess[] = [];
+    this.processes.forEach((v) => values.push(v));
+    return values;
   }
 
   /**
@@ -216,7 +218,9 @@ class BotProcessManager {
    */
   private startHeartbeatMonitor(): void {
     this.heartbeatInterval = setInterval(async () => {
-      for (const [botId, botProcess] of Array.from(this.processes)) {
+      const entries: [string, BotProcess][] = [];
+      this.processes.forEach((v, k) => entries.push([k, v]));
+      for (const [botId, botProcess] of entries) {
         if (botProcess.status === "running" && botProcess.process) {
           // Check if process is still alive
           if (botProcess.process.killed) {
@@ -273,9 +277,9 @@ class BotProcessManager {
    * Stop all bots (for graceful shutdown)
    */
   stopAllBots(): void {
-    for (const [botId] of this.processes) {
-      this.stopBot(botId);
-    }
+    const botIds: string[] = [];
+    this.processes.forEach((_, botId) => botIds.push(botId));
+    botIds.forEach((botId) => this.stopBot(botId));
   }
 }
 

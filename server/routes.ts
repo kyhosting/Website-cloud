@@ -265,7 +265,7 @@ python bootstrap.py`;
       const success = await botManager.restartBot(
         req.params.id,
         bot.botToken,
-        bot.telegramId,
+        Number(bot.telegramId),
         bot.version as "v1" | "v2"
       );
 
