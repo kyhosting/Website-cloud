@@ -1,6 +1,21 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "";
+// Auto-detect API URL: env var > localhost > same hostname with Replit backend
+function getApiBaseUrl() {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  
+  // In development, use localhost
+  if (import.meta.env.DEV) {
+    return "http://localhost:5000";
+  }
+  
+  // In production (Vercel), use Replit backend directly
+  return "https://runner-workspace.replit.dev";
+}
+
+const API_BASE_URL = getApiBaseUrl();
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
