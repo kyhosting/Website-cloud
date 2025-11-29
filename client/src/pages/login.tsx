@@ -5,24 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RobotMascot } from "@/components/robot-mascot";
 
-// Get API URL - env var > localhost > Replit backend
-function getApiUrl() {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
-  if (import.meta.env.DEV) {
-    return "http://localhost:5000";
-  }
-  return "https://runner-workspace.replit.dev";
-}
-
 export default function Login() {
   const [selectedMethod, setSelectedMethod] = useState<"google" | "email" | null>(null);
 
   const handleGoogleLogin = () => {
-    // Redirect to Google OAuth - use absolute URL
-    const apiUrl = getApiUrl();
-    window.location.href = `${apiUrl}/api/auth/google`;
+    // Redirect to Google OAuth - use relative URL for dev, absolute for production
+    const isDev = import.meta.env.DEV;
+    const apiUrl = isDev ? "/api/auth/google" : "https://runner-workspace.replit.dev/api/auth/google";
+    window.location.href = apiUrl;
   };
 
   const handleEmailLogin = () => {
