@@ -1,10 +1,13 @@
 /**
  * Bot V1 Bootstrap Script - Auto-inject config and start bot
- * Usage: node bootstrap.js --config=<config-json-or-env-var>
+ * Usage: node bootstrap.js
  */
 
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 async function bootstrap() {
   console.log("🚀 Bot V1 Bootstrap - KIFZLDEV NEO-2025");
@@ -20,20 +23,44 @@ async function bootstrap() {
   }
 
   try {
-    const config = JSON.parse(configJson);
+    const botConfig = JSON.parse(configJson);
     
     console.log("✅ Config loaded from environment");
-    console.log("📦 Bot Token: " + (config.botToken ? "●●●●●●●●●●●●●●●●●●" : "NOT SET"));
-    console.log("📦 Telegram ID: " + config.telegramId);
-    console.log("📦 Bot ID: " + config.botId);
-    console.log("📦 User ID: " + config.userId);
-    console.log("📦 Premium: " + (config.isPremium ? "YES ✓" : "NO"));
+    console.log("📦 Bot Token: " + (botConfig.botToken ? "●●●●●●●●●●●●●●●●●●" : "NOT SET"));
+    console.log("📦 Telegram ID: " + botConfig.telegramId);
+    console.log("📦 Bot ID: " + botConfig.botId);
+    console.log("📦 User ID: " + botConfig.userId);
+    console.log("📦 Premium: " + (botConfig.isPremium ? "YES ✓" : "NO"));
     
     // Set environment variables for bot
-    process.env.TELEGRAM_BOT_TOKEN = config.botToken;
-    process.env.OWNER_ID = config.telegramId;
-    process.env.BOT_ID = config.botId;
-    process.env.USER_ID = config.userId;
+    process.env.TELEGRAM_BOT_TOKEN = botConfig.botToken;
+    process.env.OWNER_ID = botConfig.telegramId;
+    process.env.BOT_ID = botConfig.botId;
+    process.env.USER_ID = botConfig.userId;
+    
+    // Create auto-generated config.js with matched structure
+    const configContent = `// 🔐 AUTO-GENERATED CONFIG - KIFZLDEV NEO-2025
+// Do not commit this file with real tokens!
+
+const token = process.env.TELEGRAM_BOT_TOKEN || "${botConfig.botToken}";
+
+export default {
+  token: token,
+  owner: [${botConfig.telegramId}],
+  ownerUsername: "${botConfig.userTelegramId || "KIFZLDEV"}",
+  botCreator: "KIFZL & PARTNER/SUPPORT IQBAL DEV",
+  groups: {
+    main: "your_group_username",
+    cv: "your_channel_username"
+  },
+  version: "2.1.0",
+  copyright: "© 2025 KIFZL & IQBAL DEV. All rights reserved.",
+  watermark: "🎌 IQBAL CV BOT - OFFICIAL VERSION 🎌\\nPowered by KIFZL & IQBAL DEV"
+};
+`;
+    
+    fs.writeFileSync(path.join(__dirname, "config.js"), configContent);
+    console.log("📝 config.js generated from auto-injected credentials");
     
     console.log("\n✅ All environment variables set!");
     console.log("🔧 Starting bot index.js...\n");
