@@ -50,7 +50,7 @@ export function BotCard({ bot, onDelete, onRestart, onViewLogs, isLoading }: Bot
               )} />
             </div>
             <div className="min-w-0">
-              <h3 className="font-semibold truncate">{bot.botName}</h3>
+              <h3 className="font-semibold truncate">Bot {bot.telegramId}</h3>
               {bot.botUsername && (
                 <p className="text-sm text-muted-foreground truncate">@{bot.botUsername}</p>
               )}
