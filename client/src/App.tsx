@@ -22,6 +22,9 @@ import Developer from "@/pages/developer";
 import AdminDashboard from "@/pages/admin/index";
 import AdminUsers from "@/pages/admin/users";
 import AdminPayments from "@/pages/admin/payments";
+import AdminBots from "@/pages/admin/bots";
+import AdminPremium from "@/pages/admin/premium";
+import AdminSecurity from "@/pages/admin/security";
 
 function AuthenticatedRoutes() {
   return (
@@ -36,6 +39,10 @@ function AuthenticatedRoutes() {
       <Route path="/kifzldev" component={AdminDashboard} />
       <Route path="/kifzldev/users" component={AdminUsers} />
       <Route path="/kifzldev/payments" component={AdminPayments} />
+      <Route path="/kifzldev/bots" component={AdminBots} />
+      <Route path="/kifzldev/bots/v2" component={AdminBots} />
+      <Route path="/kifzldev/premium" component={AdminPremium} />
+      <Route path="/kifzldev/security" component={AdminSecurity} />
       <Route path="/about" component={About} />
       <Route path="/security" component={Security} />
       <Route path="/developer" component={Developer} />
