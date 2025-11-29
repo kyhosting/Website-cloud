@@ -25,6 +25,7 @@ import AdminPayments from "@/pages/admin/payments";
 import AdminBots from "@/pages/admin/bots";
 import AdminPremium from "@/pages/admin/premium";
 import AdminSecurity from "@/pages/admin/security";
+import AdminV2Activate from "@/pages/admin/v2-activate";
 
 function AuthenticatedRoutes() {
   return (
@@ -43,6 +44,7 @@ function AuthenticatedRoutes() {
       <Route path="/kifzldev/bots/v2" component={AdminBots} />
       <Route path="/kifzldev/premium" component={AdminPremium} />
       <Route path="/kifzldev/security" component={AdminSecurity} />
+      <Route path="/kifzldev/v2-activate" component={AdminV2Activate} />
       <Route path="/about" component={About} />
       <Route path="/security" component={Security} />
       <Route path="/developer" component={Developer} />

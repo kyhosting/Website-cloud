@@ -3,6 +3,7 @@ import type { Server } from "http";
 import { storage } from "./storage";
 import { setupNewAuth, isAuthenticated, isAdmin } from "./auth/newAuth";
 import { registerAuthRoutes } from "./routes/authRoutes";
+import { registerV2ActivateRoutes } from "./routes/v2Activate";
 import { botManager } from "./botManager";
 import multer from "multer";
 import path from "path";
@@ -40,6 +41,9 @@ export async function registerRoutes(server: Server, app: Express): Promise<void
   
   // Register auth routes (Google OAuth + Email OTP)
   registerAuthRoutes(app);
+
+  // Register V2 activation routes (Admin only)
+  registerV2ActivateRoutes(app);
 
   // ==================== BOT ROUTES ====================
   
