@@ -61,8 +61,13 @@ function updateUserSession(
 }
 
 async function upsertUser(claims: any) {
+  // Generate visibleId: KIFZUSR-XXXXXX
+  const randomNum = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+  const visibleId = `KIFZUSR-${randomNum}`;
+  
   await storage.upsertUser({
     id: claims["sub"],
+    visibleId,
     email: claims["email"],
     firstName: claims["first_name"],
     lastName: claims["last_name"],
