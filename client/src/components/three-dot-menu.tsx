@@ -121,10 +121,9 @@ export function ThreeDotMenu() {
     }
 
     return [
-      { icon: <Crown className="w-5 h-5" />, label: "Premium", href: "/premium" },
-      { icon: <Info className="w-5 h-5" />, label: "Tentang", href: "/about" },
-      { icon: <Shield className="w-5 h-5" />, label: "Keamanan", href: "/security" },
-      { icon: <Code className="w-5 h-5" />, label: "Developer", href: "/developer" },
+      { icon: <User className="w-5 h-5" />, label: "Profil", href: "/profile" },
+      { icon: <History className="w-5 h-5" />, label: "Riwayat Bot", href: "/bots/history" },
+      { icon: <MessageSquare className="w-5 h-5" />, label: "Pesan Admin", href: "/messages" },
       { icon: <LogOut className="w-5 h-5" />, label: "Logout", href: "/api/logout" },
       ...(location !== "/dashboard" ? [{ icon: <ArrowLeft className="w-5 h-5" />, label: "Kembali", onClick: () => window.history.back() }] : []),
     ];
