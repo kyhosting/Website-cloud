@@ -44,10 +44,17 @@ export function registerAuthRoutes(app: Express) {
       if (req.session) {
         req.session.userId = user.id;
         req.session.email = user.email;
+        // Save session before redirecting
+        req.session.save((err: any) => {
+          if (err) {
+            console.error("Session save error:", err);
+            return res.redirect("/login?error=session_error");
+          }
+          res.redirect("/");
+        });
+      } else {
+        res.redirect("/login?error=no_session");
       }
-
-      // Redirect to dashboard
-      res.redirect("/");
     } catch (error) {
       console.error("Google callback error:", error);
       res.redirect("/login?error=auth_failed");
@@ -106,9 +113,17 @@ export function registerAuthRoutes(app: Express) {
       if (req.session) {
         req.session.userId = user.id;
         req.session.email = user.email;
+        // Save session before responding
+        req.session.save((err: any) => {
+          if (err) {
+            console.error("Session save error:", err);
+            return res.status(500).json({ message: "Session save failed" });
+          }
+          res.json({ message: "Login successful" });
+        });
+      } else {
+        res.status(500).json({ message: "No session available" });
       }
-
-      res.json({ message: "Login successful" });
     } catch (error) {
       console.error("OTP verify error:", error);
       res.status(500).json({ message: "Failed to verify OTP" });
