@@ -131,8 +131,9 @@ BOT_NAME = "KIFZL DEV BOT"
         logger.info("\n✅ All environment variables set!")
         logger.info("🔧 Starting bot main.py...\n")
         
-        # Start the main bot
-        import main
+        # Start the main bot - MUST call main() to keep it running!
+        from main import main
+        main()
         
     except json.JSONDecodeError as e:
         logger.error(f"❌ Invalid JSON in BOT_CONFIG: {e}")
