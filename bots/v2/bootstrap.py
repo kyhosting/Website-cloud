@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Bot V2 Bootstrap Script - Auto-inject config and start bot
+Automatically installs dependencies and starts the bot
 Usage: python bootstrap.py
 """
 
@@ -8,13 +9,51 @@ import os
 import json
 import sys
 import logging
+import subprocess
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+def check_and_install_dependencies():
+    """Check if dependencies are installed, if not install them"""
+    logger.info("\n🔍 Checking dependencies...")
+    
+    requirements_file = "requirements.txt"
+    
+    # Try to import main dependencies to check if installed
+    try:
+        import telegram
+        logger.info("✅ Dependencies already installed\n")
+        return
+    except ImportError:
+        logger.info("📦 Dependencies not found. Installing...\n")
+        pass
+    
+    try:
+        if os.path.exists(requirements_file):
+            logger.info("⏳ Installing from requirements.txt (this may take a few minutes)...\n")
+            subprocess.run(
+                [sys.executable, "-m", "pip", "install", "-r", requirements_file],
+                timeout=300,
+                check=True
+            )
+            logger.info("\n✅ Dependencies installed successfully!\n")
+        else:
+            logger.error("❌ requirements.txt not found!")
+            sys.exit(1)
+    except subprocess.TimeoutExpired:
+        logger.error("❌ Installation timeout")
+        sys.exit(1)
+    except subprocess.CalledProcessError as e:
+        logger.error(f"❌ Failed to install dependencies: {e}")
+        sys.exit(1)
+
 def bootstrap():
     logger.info("🚀 Bot V2 Bootstrap - KIFZLDEV NEO-2025")
     logger.info("=" * 40)
+    
+    # Check and install dependencies first
+    check_and_install_dependencies()
     
     # Get config from environment
     config_json = os.getenv("BOT_CONFIG")

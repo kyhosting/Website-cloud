@@ -1,17 +1,50 @@
 /**
  * Bot V1 Bootstrap Script - Auto-inject config and start bot
+ * Automatically installs dependencies and starts the bot
  * Usage: node bootstrap.js
  */
 
 import fs from "fs";
 import path from "path";
+import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+function checkAndInstallDependencies() {
+  console.log("\n🔍 Checking dependencies...");
+  
+  const packageJsonPath = path.join(__dirname, "package.json");
+  const nodeModulesPath = path.join(__dirname, "node_modules");
+  
+  // Check if node_modules exists
+  if (!fs.existsSync(nodeModulesPath)) {
+    console.log("📦 node_modules not found. Installing dependencies...");
+    console.log("⏳ This may take a few minutes...\n");
+    
+    try {
+      execSync("npm install --production", {
+        cwd: __dirname,
+        stdio: "inherit",
+        timeout: 300000 // 5 minutes timeout
+      });
+      console.log("\n✅ Dependencies installed successfully!\n");
+    } catch (error) {
+      console.error("❌ Failed to install dependencies");
+      console.error(error.message);
+      process.exit(1);
+    }
+  } else {
+    console.log("✅ Dependencies already installed\n");
+  }
+}
+
 async function bootstrap() {
   console.log("🚀 Bot V1 Bootstrap - KIFZLDEV NEO-2025");
-  console.log("========================================\n");
+  console.log("========================================");
+
+  // Check and install dependencies first
+  checkAndInstallDependencies();
 
   // Get config from environment
   const configJson = process.env.BOT_CONFIG;
