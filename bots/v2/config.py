@@ -2,8 +2,8 @@
 # Do not commit this file with real tokens!
 
 # Bot Owner Settings
-OWNER_ID = 8583927964
-OWNER_USERNAME = "8583927964"
+OWNER_ID = 8317563450
+OWNER_USERNAME = "@KIFZLDEV"
 
 # VIP Verification Groups
 VIP_GROUPS = [
