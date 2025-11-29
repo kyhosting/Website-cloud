@@ -129,17 +129,31 @@ class BotProcessManager {
         console.error(`[Bot ${botId} ERROR] ${message}`);
       });
 
-      childProcess.on("error", (error) => {
+      childProcess.on("error", async (error) => {
         console.error(`[Bot ${botId}] Process error:`, error);
         botProcess.status = "error";
+        
+        // Update database with error
+        await storage.updateBot(botId, {
+          status: "error",
+          lastError: error instanceof Error ? error.message : "Unknown error",
+          lastActiveAt: new Date(),
+        });
       });
 
-      childProcess.on("exit", (code, signal) => {
+      childProcess.on("exit", async (code, signal) => {
         console.log(
           `[Bot ${botId}] Process exited with code ${code}, signal ${signal}`
         );
         botProcess.status = "stopped";
         botProcess.process = null;
+        
+        // Update database - bot is now offline
+        await storage.updateBot(botId, {
+          status: "offline",
+          lastError: code !== 0 ? `Process exited with code ${code}` : null,
+          lastActiveAt: new Date(),
+        });
       });
 
       this.processes.set(botId, botProcess);
@@ -173,13 +187,19 @@ class BotProcessManager {
   /**
    * Stop a bot process
    */
-  stopBot(botId: string): void {
+  async stopBot(botId: string): Promise<void> {
     const botProcess = this.processes.get(botId);
     if (botProcess && botProcess.process) {
       console.log(`🛑 Stopping bot ${botId}`);
       botProcess.process.kill("SIGTERM");
       botProcess.status = "stopped";
       botProcess.process = null;
+      
+      // Update database
+      await storage.updateBot(botId, {
+        status: "offline",
+        lastActiveAt: new Date(),
+      });
     }
   }
 
@@ -192,7 +212,7 @@ class BotProcessManager {
     telegramId: number,
     version: "v1" | "v2"
   ): Promise<boolean> {
-    this.stopBot(botId);
+    await this.stopBot(botId);
     await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second
     return this.spawnBot(botId, botToken, telegramId, version);
   }
@@ -276,10 +296,10 @@ class BotProcessManager {
   /**
    * Stop all bots (for graceful shutdown)
    */
-  stopAllBots(): void {
+  async stopAllBots(): Promise<void> {
     const botIds: string[] = [];
     this.processes.forEach((_, botId) => botIds.push(botId));
-    botIds.forEach((botId) => this.stopBot(botId));
+    await Promise.all(botIds.map((botId) => this.stopBot(botId)));
   }
 }
 
