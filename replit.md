@@ -53,7 +53,18 @@
   - `bots/v2/` - Bot V2 repository (Python) cloned & ready
   - Bootstrap scripts for auto-config injection
 
+### Deployment ✅ (Session 7)
+- **Split Deployment Architecture**: Frontend (Vercel) + Backend (Replit) + 24/7 Keep-Alive
+- **Frontend Deployed**: https://website-cloud-9wod46rfx-kyhostings-projects.vercel.app
+- **Backend URL**: https://runner-workspace.replit.dev (auto keep-alive via UptimeRobot)
+- **Setup Files Created**:
+  - `vercel.json` - Vercel config with API redirect
+  - `netlify.toml` - Netlify alternative config
+  - `DEPLOYMENT_VERCEL_NETLIFY.md` - Complete deployment guide
+  - `queryClient.ts` - Dynamic API URL support (VITE_API_URL)
+
 ### In Progress ⏳
+- Set VITE_API_URL environment variable on Vercel
 - Real-time Telegram notifications for OTP and system events (console logging as placeholder)
 - Bot monitoring callbacks (CPU, RAM, Ping, Uptime at 5-sec intervals)
 - Custom domain setup at `kifzldev-cloud.devpanel.me`
@@ -164,7 +175,14 @@ otpCodes
 - Google OAuth + Email OTP authentication
 - Admin can activate Bot V2 for users OR for self (multi-bot)
 
-### Latest Changes (Session 6)
+### Latest Changes (Session 7)
+- ✅ Setup split deployment: Frontend (Vercel) ↔ Backend (Replit)
+- ✅ Created deployment configs (vercel.json, netlify.toml)
+- ✅ Modified queryClient.ts to support VITE_API_URL environment variable
+- ✅ Backend running successfully on port 5000
+- ✅ Created DEPLOYMENT_VERCEL_NETLIFY.md guide
+
+### Previous Changes (Session 6)
 - ✅ Fixed Google OAuth session persistence (added req.session.save())
 - ✅ Fixed all 404 errors by creating missing admin pages
 - ✅ Implemented Bot V2 activation system with 2 admin options
