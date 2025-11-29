@@ -49,7 +49,7 @@ export default function Premium() {
         variant: "destructive",
       });
       setTimeout(() => {
-        window.location.href = "/api/login";
+        window.location.href = "/login";
       }, 500);
     }
   }, [authLoading, isAuthenticated, toast]);
@@ -95,7 +95,7 @@ export default function Premium() {
           variant: "destructive",
         });
         setTimeout(() => {
-          window.location.href = "/api/login";
+          window.location.href = "/login";
         }, 500);
         return;
       }
