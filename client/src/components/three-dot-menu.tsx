@@ -112,17 +112,9 @@ export function ThreeDotMenu() {
       return [
         { icon: <BarChart3 className="w-5 h-5" />, label: "Statistik", href: "/kifzldev" },
         { icon: <Users className="w-5 h-5" />, label: "Semua User", href: "/kifzldev/users" },
-        { icon: <Bot className="w-5 h-5" />, label: "Semua Bot", href: "/kifzldev/bots" },
-        { icon: <Bot className="w-5 h-5" />, label: "Bot V1", href: "/kifzldev/bots/v1" },
-        { icon: <Bot className="w-5 h-5" />, label: "Bot V2", href: "/kifzldev/bots/v2" },
-        { icon: <History className="w-5 h-5" />, label: "Aktivitas Bot V2", href: "/kifzldev/activity" },
         { icon: <CreditCard className="w-5 h-5" />, label: "Validasi QRIS", href: "/kifzldev/payments" },
-        { icon: <Crown className="w-5 h-5" />, label: "Premium Control", href: "/kifzldev/premium" },
-        { icon: <Settings className="w-5 h-5" />, label: "Pilih Paket Premium", href: "/kifzldev/packages" },
-        { icon: <MessageSquare className="w-5 h-5" />, label: "Pesan User", href: "/kifzldev/messages" },
-        { icon: <Shield className="w-5 h-5" />, label: "Keamanan Sistem", href: "/kifzldev/security" },
-        { icon: <Database className="w-5 h-5" />, label: "Backup Database", href: "/kifzldev/backup" },
-        { icon: <Wrench className="w-5 h-5" />, label: "Developer Tools", href: "/kifzldev/devtools" },
+        { icon: <Crown className="w-5 h-5" />, label: "Premium", href: "/premium" },
+        { icon: <Shield className="w-5 h-5" />, label: "Keamanan", href: "/security" },
         { icon: <LogOut className="w-5 h-5" />, label: "Logout", href: "/api/logout" },
         ...(location !== "/kifzldev" ? [{ icon: <ArrowLeft className="w-5 h-5" />, label: "Kembali", onClick: () => window.history.back() }] : []),
       ];
@@ -130,7 +122,9 @@ export function ThreeDotMenu() {
 
     return [
       { icon: <Crown className="w-5 h-5" />, label: "Premium", href: "/premium" },
+      { icon: <Info className="w-5 h-5" />, label: "Tentang", href: "/about" },
       { icon: <Shield className="w-5 h-5" />, label: "Keamanan", href: "/security" },
+      { icon: <Code className="w-5 h-5" />, label: "Developer", href: "/developer" },
       { icon: <LogOut className="w-5 h-5" />, label: "Logout", href: "/api/logout" },
       ...(location !== "/dashboard" ? [{ icon: <ArrowLeft className="w-5 h-5" />, label: "Kembali", onClick: () => window.history.back() }] : []),
     ];
