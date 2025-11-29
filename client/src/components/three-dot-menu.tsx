@@ -163,26 +163,28 @@ export function ThreeDotMenu() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.1 }}
-            className="fixed inset-0 z-50 glass-dark flex items-center justify-center"
+            transition={{ duration: 0.05 }}
+            className="fixed inset-0 z-50 bg-background/95 backdrop-blur-sm flex flex-col w-screen h-screen"
             onClick={() => setIsOpen(false)}
           >
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-4 right-4"
-              onClick={() => setIsOpen(false)}
-              data-testid="button-close-menu"
-            >
-              <X className="w-6 h-6" />
-            </Button>
+            <div className="flex items-center justify-end p-4">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsOpen(false)}
+                data-testid="button-close-menu"
+                className="text-primary hover-elevate"
+              >
+                <X className="w-8 h-8" />
+              </Button>
+            </div>
 
             <motion.nav
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.1 }}
-              className="flex flex-col items-center gap-2 p-6 max-h-[90vh] overflow-y-auto w-full max-w-md"
+              transition={{ duration: 0.05 }}
+              className="flex flex-col w-full h-full overflow-y-auto px-6 pt-4 pb-8 gap-2"
               onClick={(e) => e.stopPropagation()}
             >
               {menuItems.map((item, index) => (
@@ -193,23 +195,23 @@ export function ThreeDotMenu() {
                     item.href.startsWith("/api") ? (
                       <a
                         href={item.href}
-                        className="w-full flex items-center gap-4 px-6 py-3 rounded-lg glass neon-border hover-elevate transition-all"
+                        className="w-full flex items-center gap-6 px-8 py-5 rounded-xl bg-muted/50 hover:bg-muted hover-elevate transition-all active-elevate-2"
                         data-testid={`menu-item-${item.label.toLowerCase().replace(/\s/g, "-")}`}
                       >
-                        <span className="text-primary">{item.icon}</span>
-                        <span className="font-medium">{item.label}</span>
+                        <span className="text-primary text-2xl">{item.icon}</span>
+                        <span className="text-lg font-medium">{item.label}</span>
                       </a>
                     ) : (
                       <Link
                         href={item.href}
-                        className="w-full flex items-center gap-4 px-6 py-3 rounded-lg glass neon-border hover-elevate transition-all"
+                        className="w-full flex items-center gap-6 px-8 py-5 rounded-xl bg-muted/50 hover:bg-muted hover-elevate transition-all active-elevate-2"
                         onClick={() => {
                           setIsOpen(false);
                         }}
                         data-testid={`menu-item-${item.label.toLowerCase().replace(/\s/g, "-")}`}
                       >
-                        <span className="text-primary">{item.icon}</span>
-                        <span className="font-medium">{item.label}</span>
+                        <span className="text-primary text-2xl">{item.icon}</span>
+                        <span className="text-lg font-medium">{item.label}</span>
                       </Link>
                     )
                   ) : (
@@ -218,11 +220,11 @@ export function ThreeDotMenu() {
                         item.onClick?.();
                         setIsOpen(false);
                       }}
-                      className="w-full flex items-center gap-4 px-6 py-3 rounded-lg glass neon-border hover-elevate transition-all"
+                      className="w-full flex items-center gap-6 px-8 py-5 rounded-xl bg-muted/50 hover:bg-muted hover-elevate transition-all active-elevate-2"
                       data-testid={`menu-item-${item.label.toLowerCase().replace(/\s/g, "-")}`}
                     >
-                      <span className="text-primary">{item.icon}</span>
-                      <span className="font-medium">{item.label}</span>
+                      <span className="text-primary text-2xl">{item.icon}</span>
+                      <span className="text-lg font-medium">{item.label}</span>
                     </button>
                   )}
                 </div>
@@ -231,12 +233,12 @@ export function ThreeDotMenu() {
               {devModeActivated && (
                 <Link
                   href="/devmode"
-                  className="w-full flex items-center gap-4 px-6 py-3 rounded-lg bg-destructive/20 border border-destructive/50 hover-elevate transition-all"
+                  className="w-full flex items-center gap-6 px-8 py-5 rounded-xl bg-destructive/20 hover:bg-destructive/30 border border-destructive/50 hover-elevate transition-all active-elevate-2"
                   onClick={() => setIsOpen(false)}
                   data-testid="menu-item-dev-mode"
                 >
-                  <AlertTriangle className="w-5 h-5 text-destructive" />
-                  <span className="font-medium text-destructive">Dev Mode</span>
+                  <AlertTriangle className="w-6 h-6 text-destructive" />
+                  <span className="text-lg font-medium text-destructive">Dev Mode</span>
                 </Link>
               )}
             </motion.nav>
