@@ -49,23 +49,30 @@ export const getQueryFn: <T>(options: {
   async ({ queryKey }) => {
     const url = queryKey.join("/") as string;
     const fullUrl = url.startsWith("http") ? url : `${API_BASE_URL}${url}`;
-    const res = await fetch(fullUrl, {
-      credentials: "include",
-    });
+    
+    try {
+      const res = await fetch(fullUrl, {
+        credentials: "include",
+      });
 
-    if (res.status === 401) {
-      if (unauthorizedBehavior === "returnNull") {
-        return null;
+      // For 401, treat as unauthenticated but don't error
+      if (res.status === 401) {
+        if (unauthorizedBehavior === "returnNull") {
+          return null;
+        }
+        // For auth endpoint, return null instead of throwing to prevent infinite loop
+        if (queryKey[0] === "/api/auth/user") {
+          return null;
+        }
+        throw new Error("401: Unauthorized");
       }
-      // For auth endpoint, return null instead of throwing to prevent infinite loop
-      if (queryKey[0] === "/api/auth/user") {
-        return null;
-      }
-      throw new Error("401: Unauthorized");
+
+      await throwIfResNotOk(res);
+      return await res.json();
+    } catch (error) {
+      console.error(`Query failed for ${fullUrl}:`, error);
+      throw error;
     }
-
-    await throwIfResNotOk(res);
-    return await res.json();
   };
 
 export const queryClient = new QueryClient({
