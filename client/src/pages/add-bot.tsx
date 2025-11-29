@@ -29,7 +29,7 @@ import { useLocation } from "wouter";
 
 const addBotSchema = z.object({
   botToken: z.string().min(40, "Token bot tidak valid").max(100, "Token terlalu panjang"),
-  botName: z.string().min(2, "Nama bot minimal 2 karakter").max(50, "Nama terlalu panjang"),
+  telegramId: z.string().min(1, "Telegram ID tidak boleh kosong").regex(/^\d+$/, "Hanya angka"),
   version: z.enum(["v1", "v2"]),
 });
 
@@ -59,7 +59,7 @@ export default function AddBot() {
     resolver: zodResolver(addBotSchema),
     defaultValues: {
       botToken: "",
-      botName: "",
+      telegramId: "",
       version: "v1",
     },
   });
@@ -268,19 +268,19 @@ export default function AddBot() {
                     >
                       <FormField
                         control={form.control}
-                        name="botName"
+                        name="telegramId"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Nama Bot</FormLabel>
+                            <FormLabel>Telegram ID Bot</FormLabel>
                             <FormControl>
                               <Input 
-                                placeholder="Contoh: My Awesome Bot" 
+                                placeholder="Contoh: 1234567890" 
                                 {...field}
-                                data-testid="input-bot-name"
+                                data-testid="input-telegram-id"
                               />
                             </FormControl>
                             <FormDescription>
-                              Nama untuk identifikasi bot kamu di dashboard
+                              ID numerik bot Telegram untuk aktivasi otomatis
                             </FormDescription>
                             <FormMessage />
                           </FormItem>
