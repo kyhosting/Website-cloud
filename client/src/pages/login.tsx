@@ -9,9 +9,10 @@ export default function Login() {
   const [selectedMethod, setSelectedMethod] = useState<"google" | "email" | null>(null);
 
   const handleGoogleLogin = () => {
-    // Redirect to Google OAuth - use relative URL for dev, absolute for production
+    // Redirect to Google OAuth - use relative URL for dev, use backend URL for production
     const isDev = import.meta.env.DEV;
-    const apiUrl = isDev ? "/api/auth/google" : "https://runner-workspace.replit.dev/api/auth/google";
+    const backendUrl = import.meta.env.VITE_API_URL || "https://runner-workspace.replit.dev";
+    const apiUrl = isDev ? "/api/auth/google" : `${backendUrl}/api/auth/google`;
     window.location.href = apiUrl;
   };
 

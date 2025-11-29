@@ -19,8 +19,17 @@ const GOOGLE_OAUTH_CLIENT_SECRET = process.env.GOOGLE_OAUTH_CLIENT_SECRET;
 
 export function getGoogleAuthUrl(hostname: string): string {
   // Build redirect URI dynamically from hostname
-  const protocol = hostname.includes("localhost") ? "http" : "https";
-  const redirectUri = `${protocol}://${hostname}/api/auth/google/callback`;
+  let redirectUri: string;
+  
+  if (hostname.includes("localhost")) {
+    redirectUri = `http://localhost/api/auth/google/callback`;
+  } else if (hostname.includes("netlify") || hostname.includes("vercel")) {
+    // When coming from Netlify/Vercel, redirect to Replit backend
+    redirectUri = `https://${process.env.REPLIT_URL || "runner-workspace.replit.dev"}/api/auth/google/callback`;
+  } else {
+    // Production Replit URL
+    redirectUri = `https://${hostname}/api/auth/google/callback`;
+  }
   
   const params = new URLSearchParams({
     client_id: GOOGLE_OAUTH_CLIENT_ID!,
@@ -32,8 +41,15 @@ export function getGoogleAuthUrl(hostname: string): string {
 }
 
 export function getRedirectUri(hostname: string): string {
-  const protocol = hostname.includes("localhost") ? "http" : "https";
-  return `${protocol}://${hostname}/api/auth/google/callback`;
+  if (hostname.includes("localhost")) {
+    return `http://localhost/api/auth/google/callback`;
+  } else if (hostname.includes("netlify") || hostname.includes("vercel")) {
+    // When coming from Netlify/Vercel, redirect to Replit backend
+    return `https://${process.env.REPLIT_URL || "runner-workspace.replit.dev"}/api/auth/google/callback`;
+  } else {
+    // Production Replit URL
+    return `https://${hostname}/api/auth/google/callback`;
+  }
 }
 
 export async function exchangeGoogleCode(code: string, hostname: string): Promise<GoogleUserInfo> {

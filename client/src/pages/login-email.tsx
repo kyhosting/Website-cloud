@@ -39,7 +39,11 @@ export default function LoginEmail() {
 
   const requestOtpMutation = useMutation({
     mutationFn: async (data: EmailFormData) => {
-      const response = await fetch("/api/auth/email/request-otp", {
+      const isDev = import.meta.env.DEV;
+      const backendUrl = import.meta.env.VITE_API_URL || "https://runner-workspace.replit.dev";
+      const apiUrl = isDev ? "/api/auth/email/request-otp" : `${backendUrl}/api/auth/email/request-otp`;
+      
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -70,7 +74,11 @@ export default function LoginEmail() {
 
   const verifyOtpMutation = useMutation({
     mutationFn: async (data: OtpFormData) => {
-      const response = await fetch("/api/auth/email/verify-otp", {
+      const isDev = import.meta.env.DEV;
+      const backendUrl = import.meta.env.VITE_API_URL || "https://runner-workspace.replit.dev";
+      const apiUrl = isDev ? "/api/auth/email/verify-otp" : `${backendUrl}/api/auth/email/verify-otp`;
+      
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
