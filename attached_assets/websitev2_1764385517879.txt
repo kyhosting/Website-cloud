@@ -1,0 +1,775 @@
+⚠️ Replit AI, JANGAN analisa, JANGAN jawab, JANGAN tanya balik.
+Setelah menerima prompt ini → LANGSUNG buat dan bangun seluruh project KIFZLDEV NEO-2025 mulai dari struktur file, backend, frontend, SQL, engine bot, admin panel, user panel, login system, premium system, QRIS, sampai semua proteksi keamanan.
+
+────────────────────────────────────────
+🟣 KIFZLDEV-2025
+Platform Hosting Bot Telegram paling lengkap, futuristik, neon, profesional
+👑 Developer: KIFZLDEV HQ ⚡🔥 — 2025
+
+────────────────────────────────────────
+
+1. STRUKTUR PROJECT (WAJIB ADA)
+
+/server.js
+/package.json
+/.env
+/db/
+/db/payments/
+/system/
+/web/views/
+/web/public/
+/web/public/qris/
+/bots/<userId>/<botId>/
+/bots/admin/<botId>/
+/sql/schema.sql
+/backup/
+
+────────────────────────────────────────
+
+2. LANDING PAGE + TITIK 3 (⋮)
+
+Landing page neon futuristik berisi:
+• Banner besar “KIFZLDEV NEO-2025”
+• Tombol “Mulai Sekarang”
+• Bahasa santai profesional
+• Animasi neon glow
+• Logo robot lucu futuristik
+
+Menu titik 3 WAJIB tampil FULL:
+• Login
+• Tentang
+• Keamanan Sistem
+• Developer
+• Kembali
+
+Setelah menu dipencet → langsung pindah halaman (NO STUCK, NO DELAY).
+
+────────────────────────────────────────
+
+3. LOGIN SYSTEM LENGKAP
+
+Login Google OAuth
+
+Implementasi penuh.
+
+Login Email + OTP Telegram
+
+Form: Email + ID Telegram
+OTP dikirim via Telegram (real)
+Expire 5 menit
+Cooldown 30 detik
+Anti brute force
+Anti spam
+
+User ID otomatis:
+KIFZUSR-XXXXXX
+
+Jika ID Telegram salah → login gagal.
+
+────────────────────────────────────────
+
+4. DASHBOARD USER + TITIK 3 + BACK BUTTON
+
+User dashboard berisi:
+• Nama
+• UserID
+• Status akun
+• Total bot
+• Daftar bot
+• Tombol Tambah Bot
+• Anti delay, anti stuck
+
+Titik 3 user (FULL):
+• Profil
+• Riwayat Bot
+• Pesan Admin
+• Logout
+• Kembali
+
+Semua halaman WAJIB punya tombol:
+← Kembali
+
+────────────────────────────────────────
+. FITUR AKTIVASI BOT VERSI 2 (Python)
+
+Admin punya 2 opsi:
+
+═══════════════════════════════════════
+
+🔥 OPSI 1 — Aktivasi Bot V2 untuk User
+
+Form:
+• ID Pengguna
+• Bot Token
+• ID Telegram
+
+Hasil:
+• Bot V2 aktif untuk user
+• Status user tetap FREE, kecuali admin upgrade premium
+• Aktivitas bot V2 disimpan di admin panel
+• Data bot masuk ke: /bots/<userId>/<botId>/
+
+═══════════════════════════════════════
+
+🔥 OPSI 2 — Aktivasi Bot V2 milik Admin Sendiri
+
+Form:
+• Bot Token
+• ID Telegram
+
+Hasil:
+• Bot V2 aktif untuk admin
+• Mendukung MULTI BOT (bebas jumlahnya)
+• Disimpan di: /bots/admin/<botId>/
+
+5. SISTEM BOT: V1 & V2
+
+User bisa:
+• Tambah Bot V1 (semua user)
+• Tambah Bot V2 (premium/admin)
+• Hapus bot kapan pun
+
+Admin bisa:
+• Aktifkan V2 untuk user (Opsi 1)
+• Aktifkan V2 milik admin sendiri (Opsi 2) → MULTI BOT
+
+────────────────────────────────────────
+
+6. INJEKSI KONFIGURASI OTOMATIS (AUTO INJECT CONFIG)
+
+Untuk BOT V1 (NodeJS)
+
+Inject otomatis:
+• token
+• owner
+• userId
+• botVersion=v1
+• premium status
+• path log
+• internal api key
+
+Jika token invalid → bot dibatalkan + notif user.
+
+Untuk BOT V2 (Python)
+
+Inject otomatis:
+• token
+• owner
+• userId
+• mode (premium/free/admin)
+• version=v2
+• CPU priority
+• database url
+• internal API key
+• callback endpoint panel
+• limit requests
+
+Bot V2:
+• Buat venv otomatis
+• Install requirements otomatis
+• Jalankan engine otomatis
+
+Jika token invalid → stop + notif admin + notif user.
+
+────────────────────────────────────────
+
+7. CALLBACK STATUS BOT → PANEL
+
+Setiap bot kirim status tiap 5 detik:
+• Online / Offline
+• CPU
+• RAM
+• Ping
+• Uptime
+• Error terakhir
+
+User & admin dashboard harus realtime.
+
+────────────────────────────────────────
+
+8. ADMIN PANEL (PRIVATE URL) /kifzldev
+
+Hanya admin yang bisa akses.
+
+Menu titik 3 admin (FULL):
+• Statistik
+• Semua User
+• Semua Bot
+• Bot V1
+• Bot V2
+• Aktivitas Bot V2
+• Validasi QRIS
+• Premium Control
+• Pilih Paket Premium
+• Pesan User
+• Keamanan Sistem
+• Backup Database
+• Developer Tools
+• Logout
+• Kembali
+
+Admin bisa:
+• Ban/unban user
+• Ubah premium user
+• Hapus bot user
+• Lihat log keamanan
+• Lihat aktivitas V2
+• Validasi pembayaran
+• Restore, backup, optimasi SQL
+
+────────────────────────────────────────
+
+9. PREMIUM SYSTEM
+
+Unlock premium:
+• Bot V2
+• Limit bot lebih besar
+• CPU prioritas
+• Support prioritas
+
+Admin:
+• Upgrade user → masukkan UserID
+• Downgrade user
+• Paket premium: 7 / 30 / 90 hari
+• Log riwayat premium
+
+Expired:
+• Bot V2 user OFF otomatis
+• Notif Telegram
+
+────────────────────────────────────────
+
+10. QRIS MANUAL PAYMENT
+
+Folder bukti bayar:
+/db/payments/
+
+User:
+• Lihat QRIS (bukan gateway)
+• Upload bukti bayar
+
+Admin:
+• Validasi
+• Tolak
+• Hapus bukti
+• Aktivasi premium otomatis
+• Kirim notif user via Telegram
+
+────────────────────────────────────────
+
+11. SISTEM NOTIFIKASI TELEGRAM
+
+User menerima:
+• Login sukses
+• OTP
+• Bot hidup/mati
+• Error bot
+• Premium aktif
+• Premium expired
+
+Admin menerima:
+• User baru
+• Pembayaran masuk
+• Error fatal bot
+• Aktivasi bot V2
+• Percobaan hacking
+• System alert
+
+────────────────────────────────────────
+
+12. PROTEKSI SYSTEM (WAJIB)
+
+• Anti rename developer “KIFZLDEV”
+• Anti akses bot milik user lain
+• Anti modify panel file
+• Anti brute force OTP
+• Auto suspend akses ilegal
+• Auto logout 24 jam
+
+Jika developer name dihapus → blokir aksi + notif admin.
+
+────────────────────────────────────────
+
+13. MODE DEVELOPER TERSEMBUNYI
+
+Masuk dengan:
+• SHIFT + D + V tahan 5 detik
+atau titik 3 → tahan 5 detik
+
+Fitur dev mode:
+• Log sistem
+• CPU live
+• RAM live
+• Inspect config
+• Reset cache
+• Debug bot
+• System inspector
+
+Tidak boleh terlihat oleh user biasa.
+
+────────────────────────────────────────
+
+14. BAN USER SYSTEM
+
+Admin bisa ban user.
+
+Jika user diban:
+• Tidak bisa login
+• Semua bot OFF
+• User & admin dapat notif
+
+────────────────────────────────────────
+
+15. AUTO DELETE BOT IDLE
+
+Bot idle 7 hari:
+• Kirim notif user
+• Tunggu 24 jam
+• Jika tetap idle → auto delete
+
+Admin bisa matikan fitur ini.
+
+────────────────────────────────────────
+
+16. ANTI CLONING SYSTEM
+
+Panel harus:
+• Cek fingerprint folder
+• Cek hash file
+• Cek developer signature
+• Cek domain binding
+
+Jika cloning terdeteksi → LOCK SYSTEM
+Pesan: “Ini panel tidak resmi bro 😄🔥”
+
+────────────────────────────────────────
+
+17. LOCKDOWN MODE
+
+Aktif jika:
+• Admin gagal login 3x
+• Percobaan brute force OTP
+• Akses ilegal bot/user
+• File sistem diubah
+
+Panel freeze 5 menit + notif admin.
+
+────────────────────────────────────────
+
+18. INTERNAL FIREWALL
+
+Proteksi wajib:
+• Rate limit login
+• Rate limit OTP
+• Anti DDOS ringan
+• Blocking IP mencurigakan
+• Auto unblock 6 jam
+
+────────────────────────────────────────
+
+19. AUTO MAINTENANCE
+
+Otomatis:
+• Clean log 14 hari
+• Delete backup lama 30 hari
+• Optimasi SQL tiap 12 jam
+• Auto scan file rusak
+
+────────────────────────────────────────
+
+20. NAVIGASI ANTI STUCK & ANTI DELAY
+
+Semua pindah halaman:
+• AJAX/fetch
+• NO full reload
+• Smooth transition
+• Preload resource
+• Cache icon
+
+────────────────────────────────────────
+
+21. UI NEON FUTURISTIK
+
+WAJIB:
+• Neon ungu/cyan
+• Glow
+• Glassmorphism
+• Animasi smooth
+• Logo robot lucu keren
+• Bahasa santai profesional
+
+────────────────────────────────────────
+
+22. EKSEKUSI WAJIB SEKARANG
+
+Replit AI HARUS langsung:
+
+✔ Bangun semua struktur
+✔ Buat backend & frontend
+✔ Buat database
+✔ Integrasi login Google
+✔ Integrasi OTP Telegram
+✔ Buat dashboard user
+✔ Buat dashboard admin
+✔ Implementasi premium
+✔ Buat QRIS manual
+✔ Bot V1 & Bot V2 auto inject config
+✔ Auto status callback
+✔ Anti cloning
+✔ Anti rename developer
+✔ Firewall
+✔ Mode developer tersembunyi
+✔ Titik 3 & tombol kembali
+✔ Anti delay & anti stuck
+✔ Multi bot admin
+✔ Auto maintenance
+✔ Semua fitur bekerja
+
+
+────────────────────────────────────────
+⚠️ Replit AI, ini lanjutan dari blok utama.
+Tambahkan fitur AUTO INJECT CONFIG ke seluruh sistem tanpa penjelasan.
+Setelah ini langsung implementasikan.
+
+────────────────────────────────────────
+
+24. AUTO INJECT CONFIG UNTUK BOT V1 & BOT V2
+
+Tambahkan sistem otomatis yang melakukan injeksi konfigurasi penuh saat user/admin membuat bot baru.
+
+Semua proses wajib otomatis, tanpa campur tangan user atau admin, full dari backend.
+
+A. Auto Inject Config BOT V1 (NodeJS)
+
+Setiap user/admin membuat bot versi 1:
+
+Sistem wajib:
+
+1. Copy folder template bot dari repo V1
+2. Generate folder:
+/bots/<userId>/<botId>/
+3. Inject otomatis ke file config:
+
+Wajib diinject:
+• BOT_TOKEN
+• OWNER_TELEGRAM_ID
+• USER_ID
+• BOT_VERSION (v1)
+• PATH LOG
+• LIMIT USER
+• STATUS PREMIUM
+
+Format config wajib:
+config.json atau settings.js sesuai template
+
+4. Aktifkan bot otomatis
+5. Cek token valid
+6. Jika token invalid → hapus bot + notif user
+
+Log injeksi disimpan di admin panel.
+
+────────────────────────────────────────
+
+B. Auto Inject Config BOT V2 (Python)
+
+Jika user premium atau admin mengaktifkan V2:
+
+Sistem wajib:
+
+1. Copy template repo V2
+2. Generate folder:
+/bots/<userId>/<botId>/
+3. Auto inject ke file config bot V2:
+
+Inject data:
+• BOT_TOKEN
+• OWNER_TELEGRAM_ID
+• USER_ID
+• MODE (premium/free/admin)
+• VERSION (v2)
+• CPU PRIORITY
+• API_KEY INTERNAL PANEL
+• DATABASE URL BOT
+• LIMIT REQUEST
+• ENDPOINT PANEL CALLBACK
+
+4. Pastikan config Python valid
+5. Langsung jalankan environment
+6. Create virtual environment otomatis
+7. Install requirements bot versi 2 otomatis
+8. Jika token invalid → stop + notif admin + notif user
+
+Log inject wajib masuk:
+• Aktivitas Bot V2
+• Log admin
+• Log user
+
+────────────────────────────────────────
+
+25. AUTO CALLBACK STATUS BOT → PANEL
+
+Setiap bot berjalan:
+• Kirim status ke panel tiap 5 detik
+• Update:
+
+- Online / Offline
+- CPU Usage
+- Error terbaru
+- Ping
+- Uptime
+
+Panel user & admin wajib realtime tanpa refresh.
+
+────────────────────────────────────────
+
+26. AUTO GENERATE INTERNAL API KEY PER BOT
+
+Setiap bot baru (V1 & V2):
+
+Sistem buat:
+• API_KEY_INTERNAL_BOT
+• Hanya digunakan untuk:
+
+- komunikasi bot → panel
+- laporan error
+- laporan status
+- sinkron data
+
+API key tidak boleh bisa ditebak.
+
+────────────────────────────────────────
+
+27. AUTO SANITIZE TOKEN + VALIDASI
+
+Token bot wajib:
+• Disanitasi
+• Dicek dengan endpoint Telegram
+• Jika valid → lanjut injeksi
+• Jika invalid → blokir + notif
+
+Admin dapat log:
+“Bot gagal diinject karena token invalid”
+
+────────────────────────────────────────
+
+28. AUTO UPDATE CONFIG
+
+Jika user mengganti:
+• Nama bot
+• ID Telegram
+• Token bot
+
+→ Sistem wajib otomatis mengupdate config bot
+→ Bot direstart otomatis
+
+Tidak boleh ada error manual.
+
+────────────────────────────────────────
+
+29. AUTO SELF-HEAL CONFIG
+
+Jika config rusak:
+• Sistem auto restore
+• Mengambil dari template backup
+• Notif admin
+• Notif user
+
+Bot tetap berjalan tanpa gangguan.
+
+────────────────────────────────────────
+
+30. EKSEKUSI WAJIB
+
+Replit AI harus:
+
+✔ Menambah auto inject config V1
+✔ Menambah auto inject config V2
+✔ Generate API key per bot
+✔ Membuat callback realtime
+✔ Validasi token
+✔ Auto update config
+✔ Auto self-heal
+✔ Integrasi total dengan panel
+✔ Tidak memberikan balasan teks apa pun
+
+Setelah blok ini, langsung lanjut coding.
+
+⚠️ Replit AI, ini lanjutan dari MASTER PROMPT sebelumnya.
+Tambahkan aturan global berikut dan terapkan ke SELURUH halaman, SELURUH UI, SELURUH panel — tanpa analisa dan tanpa menjawab apa pun.
+
+────────────────────────────────────────
+
+🟣 ATURAN WAJIB: FOOTER GLOBAL
+
+Semua halaman WAJIB memiliki tulisan:
+
+“Powered by KIFZLDEV⚡🚀”
+
+Aturan wajib:
+
+1. Harus muncul di SEMUA halaman, yaitu:
+• Landing page
+• Login page
+• OTP page
+• Dashboard user
+• Semua sub-halaman user
+• Dashboard admin
+• Semua sub-halaman admin
+• Halaman pembayaran QRIS
+• Halaman validasi admin
+• Halaman error
+• Halaman keamanan
+• Halaman statistik
+• Halaman developer mode
+• Semua halaman bot (V1 & V2)
+• Halaman 404 custom
+• Halaman maintenance
+• Halaman loading
+• Halaman backup
+• Halaman pesat user
+
+2. Letak footer:
+
+   - Selalu di bawah
+   - Ukuran font kecil, rapi, profesional
+   - Glow neon halus (ungu/cyan sesuai tema Aurora)
+   - Tidak mengganggu UI utama
+   - Responsif mobile/desktop
+
+3. Footer harus otomatis disisipkan ke layout global agar:
+
+   - Tidak perlu ditulis ulang per halaman
+   - Tetap muncul walau halaman ditambahkan nanti
+   - Tidak bisa terhapus oleh user biasa
+   - Hanya admin bisa ubah styling (bukan text)
+
+4. Jika footer dihapus / diganti user:
+
+   - Aksi diblok
+   - Panel mengunci sementara
+   - Notifikasi Telegram dikirim ke admin
+   - Pesan error ramah:
+“Footer wajib ada ya bro, itu identitas resmi kita 😄🔥”
+
+5. Footer otomatis ada pada semua mode tampilan:
+• Mode biasa
+• Mode gelap
+• Mode Aurora Glow
+• Mode Developer
+• Mode Lockdown
+
+────────────────────────────────────────
+
+🟣 WAJIB EKSEKUSI
+
+Replit AI harus langsung:
+
+✔ Menambahkan footer “Powered by KIFZLDEV⚡🚀”
+✔ Menanamkan ke layout global
+✔ Mengunci perubahan footer
+✔ Menyesuaikan UI Aurora Panel
+✔ Menerapkan ke semua halaman tanpa pengecualian
+✔ Tidak membalas teks apa pun dan langsung coding
+
+Setelah prompt ini → LANGSUNG eksekusi ke seluruh project KIFZLDEV AURORA PANEL 2025.
+
+
+
+
+
+
+
+⚠️ Replit AI, tambahkan instruksi ini ke seluruh sistem tanpa menghapus fitur yang sudah ada.
+
+──────────────────────────────────────
+
+🟣 Integrasi BOT V1 dari GitHub (NodeJS)
+
+Gunakan repository resmi:
+
+👉 https://github.com/kyhosting/BotCv-V1
+
+Panel harus:
+• Clone otomatis repository ini sebagai sumber template bot V1
+• Setiap user membuat bot V1 → panel copy folder template dari repo tadi
+• Inject semua config bot seperti:
+
+- token
+- owner
+- userId
+- internal API key
+- callback url
+- premium status
+- nama bot
+• Bot harus auto-install dependensi (npm install)
+• Bot harus jalan dengan PM2 atau sistem engine internal panel
+• Bot harus auto restart, auto repair
+• Bot harus compatible dengan callback panel
+• Bot harus jalan di folder:
+/bots/<userID>/<botID>/v1
+
+──────────────────────────────────────
+
+🟣 Integrasi BOT V2 dari GitHub (Python)
+
+Gunakan repository resmi:
+
+👉 https://github.com/kyhosting/BotCv-V2
+
+Panel harus:
+• Clone otomatis repository ini sebagai template bot V2
+• Saat user premium / admin membuat bot V2 → panel copy structure dari repo
+• Inject:
+
+- token
+- owner
+- userId
+- CPU priority
+- premium status
+- callback url
+- SQL bot path
+• Bot V2 harus menggunakan virtual environment (venv)
+• Install dependensi dari requirements.txt
+• Bot dijalankan oleh engine python internal panel
+• Auto restart + auto healing
+• Support multi-bot
+• Bot disimpan di folder:
+/bots/<userID>/<botID>/v2
+
+──────────────────────────────────────
+
+🟣 Admin Opsi Bot V2
+
+Admin dapat memilih 2 mode:
+
+1. Mode User (OPS1) → Bot V2 aktif pada user tertentu, status mengikuti user
+2. Mode Admin (OPS2) → Bot V2 milik admin sendiri, multi bot tanpa batas
+
+──────────────────────────────────────
+
+🟣 Callback Status Bot
+
+Baik V1 maupun V2 wajib mengirim callback panel setiap 5 detik:
+• online/offline
+• CPU
+• RAM
+• Uptime
+• Ping
+• Error terbaru
+
+Dashboard admin & user harus realtime.
+
+──────────────────────────────────────
+
+🟣 Eksekusi
+
+Replit AI harus langsung:
+✔ Clone repo V1 & V2
+✔ Integrasikan sebagai template
+✔ Terapkan auto inject
+✔ Jalankan engine bot V1 & V2
+✔ Tanpa merusak sistem panel lain
+✔ Tanpa menjawab teks apa pun
+✔ Tanpa mengubah branding
+✔ Tanpa sistem deploy anywhere
+
