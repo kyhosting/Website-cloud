@@ -122,6 +122,56 @@ export async function registerRoutes(server: Server, app: Express): Promise<void
     }
   });
 
+  // Get bot config (auto-injected)
+  app.get("/api/bots/:id/config", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const bot = await storage.getBotById(req.params.id);
+      
+      if (!bot) {
+        return res.status(404).json({ message: "Bot not found" });
+      }
+      
+      if (bot.userId !== userId) {
+        return res.status(403).json({ message: "Access denied" });
+      }
+
+      const user = await storage.getUser(userId);
+      
+      // Generate auto-injected config
+      const config = {
+        // Bot credentials (auto-injected)
+        botToken: bot.botToken,
+        telegramId: bot.telegramId,
+        
+        // User info
+        userId: user?.visibleId || userId,
+        userTelegramId: user?.telegramId,
+        
+        // Premium status
+        isPremium: user?.premiumStatus === "premium",
+        premiumExpiry: user?.premiumExpiry,
+        
+        // Bot info
+        botId: bot.id,
+        botVersion: bot.version,
+        
+        // API endpoints
+        apiBaseUrl: `https://${req.hostname}/api`,
+        webhookUrl: `https://${req.hostname}/api/webhook/bot/${bot.id}`,
+        
+        // Server config
+        environment: process.env.NODE_ENV || "production",
+        serverTime: new Date().toISOString(),
+      };
+
+      res.json(config);
+    } catch (error) {
+      console.error("Error generating bot config:", error);
+      res.status(500).json({ message: "Failed to generate config" });
+    }
+  });
+
   // Restart bot
   app.post("/api/bots/:id/restart", isAuthenticated, async (req: any, res) => {
     try {
