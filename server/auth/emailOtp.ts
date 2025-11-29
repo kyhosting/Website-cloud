@@ -1,5 +1,5 @@
-import { storage } from "@/server/storage";
-import { telegramService } from "@/server/services/telegram";
+import { storage } from "../storage";
+import { telegramService } from "../services/telegram";
 
 function generateOtpCode(): string {
   return Math.floor(100000 + Math.random() * 900000).toString();

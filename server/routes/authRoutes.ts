@@ -1,14 +1,14 @@
 import type { Express } from "express";
-import { isAuthenticated } from "@/server/auth/newAuth";
-import { storage } from "@/server/storage";
-import { getGoogleAuthUrl, exchangeGoogleCode, upsertGoogleUser } from "@/server/auth/googleOAuth";
-import { requestOtp, verifyOtp, upsertEmailUser, incrementOtpAttempts } from "@/server/auth/emailOtp";
+import { isAuthenticated } from "../auth/newAuth";
+import { storage } from "../storage";
+import { getGoogleAuthUrl, exchangeGoogleCode, upsertGoogleUser } from "../auth/googleOAuth";
+import { requestOtp, verifyOtp, upsertEmailUser, incrementOtpAttempts } from "../auth/emailOtp";
 
 export function registerAuthRoutes(app: Express) {
   // Get current user
   app.get("/api/auth/user", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.session.userId;
+      const userId = req.session?.userId;
       const user = await storage.getUser(userId);
       res.json(user);
     } catch (error) {
@@ -41,8 +41,10 @@ export function registerAuthRoutes(app: Express) {
       const user = await upsertGoogleUser(userInfo);
 
       // Set session
-      req.session.userId = user.id;
-      req.session.email = user.email;
+      if (req.session) {
+        req.session.userId = user.id;
+        req.session.email = user.email;
+      }
 
       // Redirect to dashboard
       res.redirect("/");
@@ -101,8 +103,10 @@ export function registerAuthRoutes(app: Express) {
       }
 
       // Set session
-      req.session.userId = user.id;
-      req.session.email = user.email;
+      if (req.session) {
+        req.session.userId = user.id;
+        req.session.email = user.email;
+      }
 
       res.json({ message: "Login successful" });
     } catch (error) {
