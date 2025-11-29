@@ -4,44 +4,33 @@
  * DO NOT EDIT MANUALLY - regenerate from dashboard instead
  */
 
-import fs from "fs";
-
-// Load auto-injected credentials from environment or config file
-const autoConfig = JSON.parse(process.env.BOT_CONFIG || "{}");
+// Load auto-injected credentials from environment
+const token = process.env.TELEGRAM_BOT_TOKEN || "";
+const botConfig = JSON.parse(process.env.BOT_CONFIG || "{}");
 
 export default {
   // Auto-injected Bot Token from KIFZLDEV Platform
-  token: autoConfig.botToken || process.env.TELEGRAM_BOT_TOKEN || "",
+  token: token,
   
-  // Auto-injected Owner ID (Telegram ID)
-  owner: [parseInt(autoConfig.telegramId) || 0],
+  // Auto-injected Owner ID (Telegram ID) - Array format for bot
+  owner: [parseInt(botConfig.telegramId) || 0],
   
   // Owner Username (from user profile)
-  ownerUsername: autoConfig.userTelegramId || "OWNER",
+  ownerUsername: botConfig.userTelegramId || "KIFZLDEV",
   
-  // Bot Creator Info
+  // Bot Creator Info / Info Pembuat Bot
   botCreator: "KIFZL & PARTNER/SUPPORT IQBAL DEV",
   
-  // Group Configuration
+  // Group Configuration / Konfigurasi Grup
   groups: {
-    main: autoConfig.mainGroup || "main_group",
-    cv: autoConfig.cvChannel || "cv_channel"
+    main: "your_group_username",    // Main group / Grup utama
+    cv: "your_channel_username"     // Channel CV
   },
   
-  // Version & Copyright
+  // Version & Copyright / Versi & Hak Cipta
   version: "2.1.0",
-  copyright: "© 2025 KIFZL & IQBAL DEV. All rights reserved.",
+  copyright: "© 2025 KIFZL & IQBAL DEV. All rights reserved. / Semua hak dilindungi.",
   
-  // Platform Integration
-  platform: {
-    botId: autoConfig.botId,
-    userId: autoConfig.userId,
-    apiBaseUrl: autoConfig.apiBaseUrl || "https://kifzldev-cloud.devpanel.me/api",
-    webhookUrl: autoConfig.webhookUrl,
-    isPremium: autoConfig.isPremium || false,
-    premiumExpiry: autoConfig.premiumExpiry
-  },
-  
-  // Watermark
+  // Watermark - IMPORTANT: DO NOT REMOVE / JANGAN HAPUS
   watermark: "🎌 IQBAL CV BOT - OFFICIAL VERSION 🎌\nPowered by KIFZL & IQBAL DEV"
 };

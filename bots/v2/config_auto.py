@@ -9,25 +9,39 @@ import json
 
 # Load auto-injected credentials from environment
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
-OWNER_ID = int(os.getenv("OWNER_ID", "0"))
-BOT_ID = os.getenv("BOT_ID", "")
-USER_ID = os.getenv("USER_ID", "")
-API_BASE_URL = os.getenv("API_BASE_URL", "https://kifzldev-cloud.devpanel.me/api")
-WEBHOOK_URL = os.getenv("WEBHOOK_URL", "")
-IS_PREMIUM = os.getenv("IS_PREMIUM", "False").lower() == "true"
-PREMIUM_EXPIRY = os.getenv("PREMIUM_EXPIRY", "")
+OWNER_ID = int(os.getenv("OWNER_ID", "8317563450"))
+OWNER_USERNAME = os.getenv("OWNER_USERNAME", "@KIFZLDEV")
 
-# Platform Configuration
-PLATFORM_CONFIG = {
-    "botId": BOT_ID,
-    "userId": USER_ID,
-    "apiBaseUrl": API_BASE_URL,
-    "webhookUrl": WEBHOOK_URL,
-    "isPremium": IS_PREMIUM,
-    "premiumExpiry": PREMIUM_EXPIRY
+# VIP Verification Groups
+VIP_GROUPS = [
+    "https://t.me/agentviber12",
+    "https://t.me/channelviber"
+]
+
+# VIP Access Duration (days)
+VIP_DURATION_DAYS = 7
+
+# File Paths
+USERS_FILE = "users.json"
+REDEEM_FILE = "redeem.json"
+SESSIONS_FILE = "sessions.json"
+ADMINS_FILE = "admins.json"
+
+# Notification Settings
+VIP_EXPIRY_WARNING_HOURS = 24  # Send warning 24 hours before expiry
+
+# Role Hierarchy
+ROLE_HIERARCHY = {
+    "FREE": 0,
+    "VIP": 1,
+    "PREMIUM": 2,
+    "OWNER": 3
 }
 
-# Bot Creator Info
+# Date Format
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+# Bot Information
 BOT_CREATOR = "KIFZL & PARTNER/SUPPORT IQBAL DEV"
-COPYRIGHT = "© 2025 KIFZL & IQBAL DEV. All rights reserved."
-WATERMARK = "🎌 IQBAL CV BOT - OFFICIAL VERSION 🎌\nPowered by KIFZL & IQBAL DEV"
+BOT_SUPPORT = "@KIFZLDEV"
+BOT_NAME = "KIFZL DEV BOT"

@@ -25,21 +25,69 @@ def bootstrap():
         sys.exit(1)
     
     try:
-        config = json.loads(config_json)
+        bot_config = json.loads(config_json)
         
         logger.info("✅ Config loaded from environment")
-        logger.info(f"📦 Bot Token: {'●●●●●●●●●●●●●●●●●●' if config.get('botToken') else 'NOT SET'}")
-        logger.info(f"📦 Telegram ID: {config.get('telegramId')}")
-        logger.info(f"📦 Bot ID: {config.get('botId')}")
-        logger.info(f"📦 User ID: {config.get('userId')}")
-        logger.info(f"📦 Premium: {'YES ✓' if config.get('isPremium') else 'NO'}")
+        logger.info(f"📦 Bot Token: {'●●●●●●●●●●●●●●●●●●' if bot_config.get('botToken') else 'NOT SET'}")
+        logger.info(f"📦 Telegram ID: {bot_config.get('telegramId')}")
+        logger.info(f"📦 Bot ID: {bot_config.get('botId')}")
+        logger.info(f"📦 User ID: {bot_config.get('userId')}")
+        logger.info(f"📦 Premium: {'YES ✓' if bot_config.get('isPremium') else 'NO'}")
         
         # Set environment variables for bot
-        os.environ["TELEGRAM_BOT_TOKEN"] = config.get("botToken", "")
-        os.environ["OWNER_ID"] = str(config.get("telegramId", "0"))
-        os.environ["BOT_ID"] = config.get("botId", "")
-        os.environ["USER_ID"] = config.get("userId", "")
-        os.environ["IS_PREMIUM"] = str(config.get("isPremium", False)).lower()
+        os.environ["TELEGRAM_BOT_TOKEN"] = bot_config.get("botToken", "")
+        os.environ["OWNER_ID"] = str(bot_config.get("telegramId", "0"))
+        os.environ["BOT_ID"] = bot_config.get("botId", "")
+        os.environ["USER_ID"] = bot_config.get("userId", "")
+        os.environ["IS_PREMIUM"] = str(bot_config.get("isPremium", False)).lower()
+        
+        # Generate config.py from auto-injected credentials
+        config_content = f'''# 🔐 AUTO-GENERATED CONFIG - KIFZLDEV NEO-2025
+# Do not commit this file with real tokens!
+
+# Bot Owner Settings
+OWNER_ID = {bot_config.get("telegramId", "8317563450")}
+OWNER_USERNAME = "{bot_config.get("userTelegramId", "@KIFZLDEV")}"
+
+# VIP Verification Groups
+VIP_GROUPS = [
+    "https://t.me/agentviber12",
+    "https://t.me/channelviber"
+]
+
+# VIP Access Duration (days)
+VIP_DURATION_DAYS = 7
+
+# File Paths
+USERS_FILE = "users.json"
+REDEEM_FILE = "redeem.json"
+SESSIONS_FILE = "sessions.json"
+ADMINS_FILE = "admins.json"
+
+# Notification Settings
+VIP_EXPIRY_WARNING_HOURS = 24
+
+# Role Hierarchy
+ROLE_HIERARCHY = {{
+    "FREE": 0,
+    "VIP": 1,
+    "PREMIUM": 2,
+    "OWNER": 3
+}}
+
+# Date Format
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+# Bot Information
+BOT_CREATOR = "KIFZL & PARTNER/SUPPORT IQBAL DEV"
+BOT_SUPPORT = "@KIFZLDEV"
+BOT_NAME = "KIFZL DEV BOT"
+'''
+        
+        with open("config.py", "w") as f:
+            f.write(config_content)
+        
+        logger.info("📝 config.py generated from auto-injected credentials")
         
         logger.info("\n✅ All environment variables set!")
         logger.info("🔧 Starting bot main.py...\n")
